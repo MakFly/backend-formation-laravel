@@ -64,7 +64,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse --memory-limit=2G
+        run: ./vendor/bin/phpstan analyse --memory-limit=-1
 
   security:
     name: Security Audit
