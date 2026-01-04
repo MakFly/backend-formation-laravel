@@ -44,9 +44,6 @@ jobs:
           php artisan migrate --force --ansi
           php artisan storage:link || true
 
-          # Verify APP_KEY is set
-          php -r "echo 'APP_KEY: ' . env('APP_KEY') . PHP_EOL;"
-
       - name: Clear and cache configurations
         run: |
           php artisan config:cache
