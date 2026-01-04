@@ -5,12 +5,53 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\LessonProgressStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $enrollment_id
+ * @property string $lesson_id
+ * @property LessonProgressStatus|null $status
+ * @property int $progress_percentage
+ * @property Carbon|null $started_at
+ * @property Carbon|null $completed_at
+ * @property Carbon|null $last_accessed_at
+ * @property int $time_spent_seconds
+ * @property int $access_count
+ * @property int|null $current_position
+ * @property bool $is_favorite
+ * @property array|null $metadata
+ * @property array|null $notes
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read string $time_spent
+ * @property-read Enrollment $enrollment
+ * @property-read Lesson $lesson
+ *
+ * @method static Builder|LessonProgress byStatus(LessonProgressStatus|string $status)
+ * @method static Builder|LessonProgress notStarted()
+ * @method static Builder|LessonProgress inProgress()
+ * @method static Builder|LessonProgress completed()
+ * @method static Builder|LessonProgress byEnrollment(string $enrollmentId)
+ * @method static Builder|LessonProgress byLesson(string $lessonId)
+ * @method static Builder|LessonProgress favorites()
+ * @method static Builder|LessonProgress newModelQuery()
+ * @method static Builder|LessonProgress newQuery()
+ * @method static Builder|LessonProgress query()
+ * @method static Builder|LessonProgress where($column, $operator = null, $value = null)
+ * @method static Builder|LessonProgress find($id)
+ * @method static Builder|LessonProgress findOrFail($id)
+ * @method static LessonProgress create(array $attributes = [])
+ * @method static LessonProgress firstOrCreate(array $attributes, array $values = [])
+ * @method static LessonProgress firstOrNew(array $attributes, array $values = [])
+ */
 final class LessonProgress extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

@@ -5,13 +5,57 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\EnrollmentStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @property string $id
+ * @property string $customer_id
+ * @property string $formation_id
+ * @property EnrollmentStatus $status
+ * @property int $progress_percentage
+ * @property Carbon|null $enrolled_at
+ * @property Carbon|null $started_at
+ * @property Carbon|null $completed_at
+ * @property Carbon|null $cancelled_at
+ * @property Carbon|null $last_accessed_at
+ * @property int $access_count
+ * @property float|null $amount_paid
+ * @property string|null $payment_reference
+ * @property array|null $metadata
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Customer $customer
+ * @property-read Formation $formation
+ * @property-read Collection<int, LessonProgress> $lessonProgress
+ *
+ * @method static Builder|Enrollment byStatus(EnrollmentStatus|string $status)
+ * @method static Builder|Enrollment active()
+ * @method static Builder|Enrollment completed()
+ * @method static Builder|Enrollment pending()
+ * @method static Builder|Enrollment byCustomer(string $customerId)
+ * @method static Builder|Enrollment byFormation(string $formationId)
+ * @method static Builder|Enrollment recent()
+ * @method static Builder|Enrollment newModelQuery()
+ * @method static Builder|Enrollment newQuery()
+ * @method static Builder|Enrollment query()
+ * @method static Builder|Enrollment whereId($value)
+ * @method static Builder|Enrollment where($column, $operator = null, $value = null)
+ * @method static Builder|Enrollment find($id)
+ * @method static Builder|Enrollment findOrFail($id)
+ * @method static Enrollment create(array $attributes = [])
+ * @method static Enrollment firstOrCreate(array $attributes, array $values = [])
+ * @method static Enrollment firstOrNew(array $attributes, array $values = [])
+ * @method static int count()
+ */
 final class Enrollment extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

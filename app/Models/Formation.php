@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\PricingTier;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +15,80 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string|null $category_id
+ * @property string $title
+ * @property string $slug
+ * @property string|null $summary
+ * @property string|null $description
+ * @property PricingTier $pricing_tier
+ * @property float $price
+ * @property string|null $mode
+ * @property string|null $thumbnail
+ * @property string|null $video_trailer
+ * @property array|null $tags
+ * @property array|null $objectives
+ * @property array|null $requirements
+ * @property array|null $target_audience
+ * @property string|null $language
+ * @property array|null $subtitles
+ * @property string|null $difficulty_level
+ * @property int $duration_hours
+ * @property int $duration_minutes
+ * @property string|null $instructor_name
+ * @property string|null $instructor_title
+ * @property string|null $instructor_avatar
+ * @property string|null $instructor_bio
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property bool $is_published
+ * @property bool $is_featured
+ * @property Carbon|null $published_at
+ * @property int $enrollment_count
+ * @property float $average_rating
+ * @property int $review_count
+ * @property array|null $content_mdx
+ * @property array|null $metadata
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read string $total_duration
+ * @property-read int|null $enrollments_count
+ * @property-read int|null $active_enrollments_count
+ * @property-read int|null $completed_enrollments_count
+ * @property-read float|null $revenue
+ * @property-read float|null $refunds
+ * @property-read int|null $lessons_count
+ * @property-read int|null $modules_count
+ * @property-read Category|null $category
+ * @property-read Collection<int, Module> $modules
+ * @property-read Collection<int, Lesson> $lessons
+ * @property-read Collection<int, Enrollment> $enrollments
+ * @property-read Collection<int, Payment> $payments
+ *
+ * @method static Builder|Formation published()
+ * @method static Builder|Formation featured()
+ * @method static Builder|Formation byCategory(string $categoryId)
+ * @method static Builder|Formation byPricingTier(PricingTier $tier)
+ * @method static Builder|Formation byMode(string $mode)
+ * @method static Builder|Formation free()
+ * @method static Builder|Formation paid()
+ * @method static Builder|Formation byDifficulty(string $level)
+ * @method static Builder|Formation byLanguage(string $language)
+ * @method static Builder|Formation withTags(array $tags)
+ * @method static Builder|Formation newModelQuery()
+ * @method static Builder|Formation newQuery()
+ * @method static Builder|Formation query()
+ * @method static Builder|Formation where($column, $operator = null, $value = null)
+ * @method static Builder|Formation withCount($relations)
+ * @method static Builder|Formation find($id)
+ * @method static Builder|Formation findOrFail($id)
+ * @method static Formation create(array $attributes = [])
+ */
 final class Formation extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

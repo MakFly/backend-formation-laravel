@@ -4,14 +4,55 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $module_id
+ * @property string $formation_id
+ * @property string $title
+ * @property string|null $slug
+ * @property string|null $summary
+ * @property string|null $content
+ * @property string|null $video_url
+ * @property string|null $thumbnail
+ * @property int|null $duration_seconds
+ * @property bool $is_preview
+ * @property bool $is_published
+ * @property int $order
+ * @property array|null $content_mdx
+ * @property array|null $metadata
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read string|null $duration_human
+ * @property-read int|null $resources_count
+ * @property-read Module $module
+ * @property-read Formation $formation
+ * @property-read Collection<int, LessonResource> $resources
+ *
+ * @method static Builder|Lesson published()
+ * @method static Builder|Lesson preview()
+ * @method static Builder|Lesson byModule(string $moduleId)
+ * @method static Builder|Lesson byFormation(string $formationId)
+ * @method static Builder|Lesson ordered()
+ * @method static Builder|Lesson newModelQuery()
+ * @method static Builder|Lesson newQuery()
+ * @method static Builder|Lesson query()
+ * @method static Builder|Lesson where($column, $operator = null, $value = null)
+ * @method static Builder|Lesson find($id)
+ * @method static Builder|Lesson findOrFail($id)
+ * @method static Lesson create(array $attributes = [])
+ */
 final class Lesson extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

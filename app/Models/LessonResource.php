@@ -5,12 +5,48 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\LessonResourceType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $lesson_id
+ * @property string $title
+ * @property LessonResourceType $type
+ * @property string|null $file_path
+ * @property string|null $file_url
+ * @property string|null $file_name
+ * @property string|null $mime_type
+ * @property int|null $file_size
+ * @property int|null $duration
+ * @property string|null $description
+ * @property bool $is_downloadable
+ * @property int $order
+ * @property array|null $metadata
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read string $human_readable_size
+ * @property-read string|null $human_readable_duration
+ * @property-read Lesson $lesson
+ *
+ * @method static Builder|LessonResource byLesson(string $lessonId)
+ * @method static Builder|LessonResource downloadable()
+ * @method static Builder|LessonResource ordered()
+ * @method static Builder|LessonResource byType(LessonResourceType $type)
+ * @method static Builder|LessonResource newModelQuery()
+ * @method static Builder|LessonResource newQuery()
+ * @method static Builder|LessonResource query()
+ * @method static Builder|LessonResource where($column, $operator = null, $value = null)
+ * @method static Builder|LessonResource find($id)
+ * @method static Builder|LessonResource findOrFail($id)
+ * @method static LessonResource create(array $attributes = [])
+ */
 final class LessonResource extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

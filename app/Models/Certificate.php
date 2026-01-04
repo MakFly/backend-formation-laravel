@@ -5,12 +5,59 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\CertificateStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $enrollment_id
+ * @property string $customer_id
+ * @property string $formation_id
+ * @property string $certificate_number
+ * @property CertificateStatus $status
+ * @property Carbon|null $issued_at
+ * @property Carbon|null $expires_at
+ * @property Carbon|null $revoked_at
+ * @property string|null $revoked_reason
+ * @property string $verification_code
+ * @property string $student_name
+ * @property string $formation_title
+ * @property string|null $instructor_name
+ * @property Carbon|null $completion_date
+ * @property string|null $pdf_path
+ * @property int|null $pdf_size_bytes
+ * @property array|null $metadata
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read string $download_url
+ * @property-read string $pdf_filename
+ * @property-read Enrollment $enrollment
+ * @property-read Customer $customer
+ * @property-read Formation $formation
+ *
+ * @method static Builder|Certificate byStatus(CertificateStatus|string $status)
+ * @method static Builder|Certificate active()
+ * @method static Builder|Certificate revoked()
+ * @method static Builder|Certificate expired()
+ * @method static Builder|Certificate byCustomer(string $customerId)
+ * @method static Builder|Certificate byFormation(string $formationId)
+ * @method static Builder|Certificate byVerificationCode(string $code)
+ * @method static Builder|Certificate byCertificateNumber(string $number)
+ * @method static Builder|Certificate notExpired()
+ * @method static Builder|Certificate newModelQuery()
+ * @method static Builder|Certificate newQuery()
+ * @method static Builder|Certificate query()
+ * @method static Builder|Certificate where($column, $operator = null, $value = null)
+ * @method static Builder|Certificate find($id)
+ * @method static Builder|Certificate findOrFail($id)
+ * @method static Certificate create(array $attributes = [])
+ */
 final class Certificate extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

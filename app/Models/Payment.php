@@ -6,12 +6,71 @@ namespace App\Models;
 
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $customer_id
+ * @property string|null $enrollment_id
+ * @property string|null $formation_id
+ * @property PaymentType $type
+ * @property PaymentStatus $status
+ * @property string|null $stripe_payment_intent_id
+ * @property string|null $stripe_checkout_session_id
+ * @property string|null $stripe_invoice_id
+ * @property string|null $stripe_subscription_id
+ * @property float $amount
+ * @property float $amount_refunded
+ * @property string $currency
+ * @property string|null $payment_method_type
+ * @property string|null $description
+ * @property string|null $failure_reason
+ * @property string|null $failure_code
+ * @property array|null $metadata
+ * @property array|null $stripe_response
+ * @property Carbon|null $paid_at
+ * @property Carbon|null $refunded_at
+ * @property Carbon|null $failed_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read int $amount_in_cents
+ * @property-read int $amount_refunded_in_cents
+ * @property-read float $refundable_amount
+ * @property-read Customer $customer
+ * @property-read Enrollment|null $enrollment
+ * @property-read Formation|null $formation
+ *
+ * @method static Builder|Payment byStatus(PaymentStatus|string $status)
+ * @method static Builder|Payment byType(PaymentType|string $type)
+ * @method static Builder|Payment byCustomer(string $customerId)
+ * @method static Builder|Payment byFormation(string $formationId)
+ * @method static Builder|Payment byStripePaymentIntent(string $paymentIntentId)
+ * @method static Builder|Payment byStripeCheckoutSession(string $sessionId)
+ * @method static Builder|Payment pending()
+ * @method static Builder|Payment processing()
+ * @method static Builder|Payment completed()
+ * @method static Builder|Payment failed()
+ * @method static Builder|Payment refunded()
+ * @method static Builder|Payment partiallyRefunded()
+ * @method static Builder|Payment successful()
+ * @method static Builder|Payment notFailed()
+ * @method static Builder|Payment newModelQuery()
+ * @method static Builder|Payment newQuery()
+ * @method static Builder|Payment query()
+ * @method static Builder|Payment where($column, $operator = null, $value = null)
+ * @method static Builder|Payment whereIn($column, $values)
+ * @method static Builder|Payment when($value, $callback)
+ * @method static Builder|Payment find($id)
+ * @method static Builder|Payment findOrFail($id)
+ * @method static Payment create(array $attributes = [])
+ */
 final class Payment extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

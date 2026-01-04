@@ -65,7 +65,6 @@ jobs:
 
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyse app --memory-limit=2G --level=5
-        continue-on-error: true  # TODO: Fix PHPDoc annotations on models
 
   security:
     name: Security Audit
