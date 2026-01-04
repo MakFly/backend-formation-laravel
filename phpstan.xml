@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<phpstan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://phpstan.org/schema/phpstan.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <paths>
+        <path>app</path>
+    </paths>
+    <level>5</level>
+</phpstan>

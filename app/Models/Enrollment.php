@@ -1,0 +1,181 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+use App\Enums\EnrollmentStatus;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+final class Enrollment extends Model
+{
+    use HasFactory, SoftDeletes, HasUuids;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'customer_id',
+        'formation_id',
+        'status',
+        'progress_percentage',
+        'enrolled_at',
+        'started_at',
+        'completed_at',
+        'cancelled_at',
+        'last_accessed_at',
+        'access_count',
+        'amount_paid',
+        'payment_reference',
+        'metadata',
+    ];
+
+    protected $casts = [
+        'customer_id' => 'string',
+        'formation_id' => 'string',
+        'status' => EnrollmentStatus::class,
+        'progress_percentage' => 'integer',
+        'enrolled_at' => 'datetime',
+        'started_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+        'last_accessed_at' => 'datetime',
+        'access_count' => 'integer',
+        'amount_paid' => 'decimal:2',
+        'metadata' => 'array',
+    ];
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function formation(): BelongsTo
+    {
+        return $this->belongsTo(Formation::class);
+    }
+
+    public function lessonProgress(): HasMany
+    {
+        return $this->hasMany(LessonProgress::class);
+    }
+
+    // Scopes
+    public function scopeByStatus($query, EnrollmentStatus|string $status)
+    {
+        return $query->where('status', $status instanceof EnrollmentStatus ? $status->value : $status);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', EnrollmentStatus::ACTIVE);
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', EnrollmentStatus::COMPLETED);
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('status', EnrollmentStatus::PENDING);
+    }
+
+    public function scopeByCustomer($query, string $customerId)
+    {
+        return $query->where('customer_id', $customerId);
+    }
+
+    public function scopeByFormation($query, string $formationId)
+    {
+        return $query->where('formation_id', $formationId);
+    }
+
+    public function scopeRecent($query)
+    {
+        return $query->orderBy('enrolled_at', 'desc');
+    }
+
+    // Accessors & Helpers
+    public function isActive(): bool
+    {
+        return $this->status === EnrollmentStatus::ACTIVE;
+    }
+
+    public function isCompleted(): bool
+    {
+        return $this->status === EnrollmentStatus::COMPLETED;
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === EnrollmentStatus::PENDING;
+    }
+
+    public function getProgressPercentageAttribute(): int
+    {
+        return $this->attributes['progress_percentage'] ?? 0;
+    }
+
+    public function markAsActive(): void
+    {
+        $this->status = EnrollmentStatus::ACTIVE;
+        if ($this->started_at === null) {
+            $this->started_at = now();
+        }
+        $this->save();
+    }
+
+    public function markAsCompleted(): void
+    {
+        $this->status = EnrollmentStatus::COMPLETED;
+        $this->progress_percentage = 100;
+        $this->completed_at = now();
+        $this->save();
+    }
+
+    public function markAsCancelled(): void
+    {
+        $this->status = EnrollmentStatus::CANCELLED;
+        $this->cancelled_at = now();
+        $this->save();
+    }
+
+    public function recordAccess(): void
+    {
+        $this->last_accessed_at = now();
+        $this->access_count = ($this->access_count ?? 0) + 1;
+        $this->save();
+    }
+
+    public function updateProgress(int $percentage): void
+    {
+        $this->progress_percentage = max(0, min(100, $percentage));
+        if ($this->progress_percentage >= 100 && !$this->isCompleted()) {
+            $this->markAsCompleted();
+        } else {
+            $this->save();
+        }
+    }
+
+    public function calculateProgressFromLessons(): int
+    {
+        $totalLessons = $this->formation->lessons()->count();
+        if ($totalLessons === 0) {
+            return 0;
+        }
+
+        $completedLessons = $this->lessonProgress()->where('status', 'completed')->count();
+        return (int) round(($completedLessons / $totalLessons) * 100);
+    }
+
+    public function refreshProgress(): void
+    {
+        $this->updateProgress($this->calculateProgressFromLessons());
+    }
+}

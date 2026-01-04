@@ -1,0 +1,740 @@
+openapi: 3.1.0
+info:
+  title: Training Platform API
+  description: |
+    A generic, reusable RESTful API for training/formation management platforms.
+
+    ## Authentication
+
+    Most endpoints require JWT authentication. Include your token in the Authorization header:
+    ```
+    Authorization: Bearer <your-jwt-token>
+    ```
+
+    ## Rate Limiting
+
+    The API implements rate limiting. Default limits are shown in the response headers:
+    ```
+    X-RateLimit-Limit: 60
+    X-RateLimit-Remaining: 45
+    X-RateLimit-Reset: 1609459200
+    ```
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: api@example.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Development server
+  - url: https://api.example.com/api/v1
+    description: Production server
+
+tags:
+  - name: Formations
+    description: Course/formation management
+  - name: Modules
+    description: Module management (nested under formations)
+  - name: Lessons
+    description: Lesson management
+  - name: Enrollment
+    description: Student enrollment
+  - name: Progress
+    description: Learning progress tracking
+  - name: Certificates
+    description: Certificate generation and verification
+  - name: Payments
+    description: Payment processing via Stripe
+  - name: Admin
+    description: Administrative operations
+
+paths:
+  /formations:
+    get:
+      tags: [Formations]
+      summary: List formations
+      description: Retrieve a paginated list of formations with optional filtering
+      parameters:
+        - name: search
+          in: query
+          description: Search in title, summary, description
+          schema:
+            type: string
+        - name: is_published
+          in: query
+          description: Filter by published status
+          schema:
+            type: boolean
+        - name: pricing_tier
+          in: query
+          description: Filter by pricing tier
+          schema:
+            type: string
+            enum: [free, premium, enterprise]
+        - name: mode
+          in: query
+          description: Filter by delivery mode
+          schema:
+            type: string
+            enum: [online, onsite, hybrid]
+        - name: page
+          in: query
+          description: Page number
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: Items per page
+          schema:
+            type: integer
+            default: 30
+            maximum: 100
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Formation'
+                      meta:
+                        $ref: '#/components/schemas/PaginationMeta'
+
+    post:
+      tags: [Formations]
+      summary: Create formation
+      description: Create a new formation (admin only)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormationInput'
+      responses:
+        '201':
+          description: Formation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormationResponse'
+        '422':
+          description: Validation error
+
+  /formations/{id}:
+    get:
+      tags: [Formations]
+      summary: Get formation details
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormationResponse'
+        '404':
+          description: Formation not found
+
+    patch:
+      tags: [Formations]
+      summary: Update formation
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormationInput'
+      responses:
+        '200':
+          description: Formation updated successfully
+        '404':
+          description: Formation not found
+        '422':
+          description: Validation error
+
+    delete:
+      tags: [Formations]
+      summary: Delete formation
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Formation deleted successfully
+        '404':
+          description: Formation not found
+
+  /formations/{formationId}/modules:
+    get:
+      tags: [Modules]
+      summary: List formation modules
+      parameters:
+        - $ref: '#/components/parameters/FormationId'
+        - name: is_published
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      tags: [Modules]
+      summary: Create module
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/FormationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModuleInput'
+      responses:
+        '201':
+          description: Module created successfully
+
+  /formations/{formationId}/modules/reorder:
+    post:
+      tags: [Modules]
+      summary: Reorder modules
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/FormationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - modules
+              properties:
+                modules:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                      - order
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      order:
+                        type: integer
+      responses:
+        '200':
+          description: Modules reordered successfully
+
+  /lessons:
+    get:
+      tags: [Lessons]
+      summary: List lessons
+      parameters:
+        - name: module_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: formation_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: is_published
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      tags: [Lessons]
+      summary: Create lesson
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonInput'
+      responses:
+        '201':
+          description: Lesson created successfully
+
+  /lessons/{id}:
+    get:
+      tags: [Lessons]
+      summary: Get lesson details
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Successful response
+
+    patch:
+      tags: [Lessons]
+      summary: Update lesson
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LessonInput'
+      responses:
+        '200':
+          description: Lesson updated successfully
+
+    delete:
+      tags: [Lessons]
+      summary: Delete lesson
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Lesson deleted successfully
+
+  /enrollments:
+    get:
+      tags: [Enrollment]
+      summary: List enrollments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      tags: [Enrollment]
+      summary: Create enrollment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+                - formation_id
+              properties:
+                customer_id:
+                  type: string
+                  format: uuid
+                formation_id:
+                  type: string
+                  format: uuid
+      responses:
+        '201':
+          description: Enrollment created successfully
+
+  /progress:
+    get:
+      tags: [Progress]
+      summary: List progress
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+  /certificates:
+    get:
+      tags: [Certificates]
+      summary: List certificates
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+  /certificates/verify/{code}:
+    get:
+      tags: [Certificates]
+      summary: Verify certificate by code
+      description: Public endpoint - no authentication required
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Certificate is valid
+        '404':
+          description: Certificate not found or invalid
+
+  /payments:
+    get:
+      tags: [Payments]
+      summary: List payments
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+    post:
+      tags: [Payments]
+      summary: Create payment (Stripe checkout)
+      description: Creates a Stripe Checkout Session for payment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - customer_id
+                - formation_id
+              properties:
+                customer_id:
+                  type: string
+                  format: uuid
+                formation_id:
+                  type: string
+                  format: uuid
+                success_url:
+                  type: string
+                  format: uri
+                cancel_url:
+                  type: string
+                  format: uri
+      responses:
+        '201':
+          description: Payment created, returns checkout URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    properties:
+                      checkout_url:
+                        type: string
+                        format: uri
+
+  /webhooks/stripe:
+    post:
+      tags: [Payments]
+      summary: Stripe webhook handler
+      description: |
+        Handles Stripe webhook events. No authentication required - signature is verified.
+
+        Supported events:
+        - payment_intent.succeeded
+        - payment_intent.payment_failed
+        - charge.refunded
+        - checkout.session.completed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Webhook processed successfully
+
+  /admin/dashboard:
+    get:
+      tags: [Admin]
+      summary: Dashboard statistics
+      description: Get dashboard metrics including revenue, enrollments, formations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: period
+          in: query
+          description: Time period for statistics
+          schema:
+            type: string
+            enum: [7d, 30d, 90d, 1y, all]
+            default: 30d
+      responses:
+        '200':
+          description: Successful response
+
+  /admin/customers:
+    get:
+      tags: [Admin]
+      summary: List customers
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+  /admin/orders:
+    get:
+      tags: [Admin]
+      summary: List orders (payments)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Resource UUID
+    FormationId:
+      name: formationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+      description: Formation UUID
+
+  schemas:
+    Formation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+        pricing_tier:
+          type: string
+          enum: [free, premium, enterprise]
+          nullable: true
+        price:
+          type: number
+          format: float
+        mode:
+          type: string
+          enum: [online, onsite, hybrid]
+        is_published:
+          type: boolean
+        is_featured:
+          type: boolean
+        enrollment_count:
+          type: integer
+        average_rating:
+          type: number
+          format: float
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    FormationInput:
+      type: object
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        summary:
+          type: string
+        description:
+          type: string
+        pricing_tier:
+          type: string
+          enum: [free, premium, enterprise]
+        price:
+          type: number
+          format: float
+        mode:
+          type: string
+          enum: [online, onsite, hybrid]
+        is_published:
+          type: boolean
+        is_featured:
+          type: boolean
+
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        formation_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [video, text, quiz, assignment, interactive]
+        order:
+          type: integer
+        is_published:
+          type: boolean
+        lesson_count:
+          type: integer
+
+    ModuleInput:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum: [video, text, quiz, assignment, interactive]
+        order:
+          type: integer
+        is_published:
+          type: boolean
+
+    Lesson:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        module_id:
+          type: string
+          format: uuid
+        formation_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        summary:
+          type: string
+        video_url:
+          type: string
+          format: uri
+        duration_seconds:
+          type: integer
+        is_preview:
+          type: boolean
+        is_published:
+          type: boolean
+        order:
+          type: integer
+
+    LessonInput:
+      type: object
+      required:
+        - formation_id
+        - title
+      properties:
+        module_id:
+          type: string
+          format: uuid
+        formation_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        slug:
+          type: string
+        summary:
+          type: string
+        video_url:
+          type: string
+          format: uri
+        duration_seconds:
+          type: integer
+        is_preview:
+          type: boolean
+        is_published:
+          type: boolean
+        order:
+          type: integer
+
+    FormationResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/Formation'
+
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+        last_page:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+        errors:
+          type: object
