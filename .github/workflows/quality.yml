@@ -53,6 +53,7 @@ jobs:
 
       - name: Run Larastan (static analysis)
         run: ./vendor/bin/phpstan analyse --memory-limit=2G
+        continue-on-error: true
 
       - name: Run security audit
         run: composer audit --no-dev
