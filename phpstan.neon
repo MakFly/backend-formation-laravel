@@ -6,6 +6,6 @@ parameters:
     paths:
         - app
 
-    level: 5
+    level: 6
 
     reportUnmatchedIgnoredErrors: false

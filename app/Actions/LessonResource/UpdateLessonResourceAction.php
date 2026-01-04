@@ -8,6 +8,9 @@ use App\Models\LessonResource;
 
 final readonly class UpdateLessonResourceAction
 {
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function __invoke(LessonResource $resource, array $data): LessonResource
     {
         $resource->fill($data);

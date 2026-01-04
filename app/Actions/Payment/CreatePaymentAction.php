@@ -47,6 +47,8 @@ final readonly class CreatePaymentAction
 
     /**
      * Create a payment by direct amount.
+     *
+     * @param  array<string, mixed>  $data
      */
     public function direct(array $data): Payment
     {

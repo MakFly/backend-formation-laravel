@@ -31,7 +31,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $completion_date
  * @property string|null $pdf_path
  * @property int|null $pdf_size_bytes
- * @property array|null $metadata
+ * @property array<string, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -96,63 +96,102 @@ final class Certificate extends Model
     ];
 
     // Relations
+    /** @return BelongsTo<Enrollment, $this> */
     public function enrollment(): BelongsTo
     {
         return $this->belongsTo(Enrollment::class);
     }
 
+    /** @return BelongsTo<Customer, $this> */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
+    /** @return BelongsTo<Formation, $this> */
     public function formation(): BelongsTo
     {
         return $this->belongsTo(Formation::class);
     }
 
     // Scopes
-    public function scopeByStatus($query, CertificateStatus|string $status)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeByStatus(Builder $query, CertificateStatus|string $status): Builder
     {
         return $query->where('status', $status instanceof CertificateStatus ? $status->value : $status);
     }
 
-    public function scopeActive($query)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', CertificateStatus::ACTIVE);
     }
 
-    public function scopeRevoked($query)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeRevoked(Builder $query): Builder
     {
         return $query->where('status', CertificateStatus::REVOKED);
     }
 
-    public function scopeExpired($query)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeExpired(Builder $query): Builder
     {
         return $query->where('status', CertificateStatus::EXPIRED);
     }
 
-    public function scopeByCustomer($query, string $customerId)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeByCustomer(Builder $query, string $customerId): Builder
     {
         return $query->where('customer_id', $customerId);
     }
 
-    public function scopeByFormation($query, string $formationId)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeByFormation(Builder $query, string $formationId): Builder
     {
         return $query->where('formation_id', $formationId);
     }
 
-    public function scopeByVerificationCode($query, string $code)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeByVerificationCode(Builder $query, string $code): Builder
     {
         return $query->where('verification_code', $code);
     }
 
-    public function scopeByCertificateNumber($query, string $number)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeByCertificateNumber(Builder $query, string $number): Builder
     {
         return $query->where('certificate_number', $number);
     }
 
-    public function scopeNotExpired($query)
+    /**
+     * @param Builder<Certificate> $query
+     * @return Builder<Certificate>
+     */
+    public function scopeNotExpired(Builder $query): Builder
     {
         return $query->where(function ($q) {
             $q->whereNull('expires_at')

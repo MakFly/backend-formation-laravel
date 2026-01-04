@@ -26,8 +26,8 @@ use Illuminate\Support\Carbon;
  * @property int $access_count
  * @property int|null $current_position
  * @property bool $is_favorite
- * @property array|null $metadata
- * @property array|null $notes
+ * @property array<string, mixed>|null $metadata
+ * @property array<string, mixed>|null $notes
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -92,48 +92,78 @@ final class LessonProgress extends Model
         'notes' => 'array',
     ];
 
+    /** @return BelongsTo<Enrollment, $this> */
     public function enrollment(): BelongsTo
     {
         return $this->belongsTo(Enrollment::class);
     }
 
+    /** @return BelongsTo<Lesson, $this> */
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class);
     }
 
     // Scopes
-    public function scopeByStatus($query, LessonProgressStatus|string $status)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeByStatus(Builder $query, LessonProgressStatus|string $status): Builder
     {
         return $query->where('status', $status instanceof LessonProgressStatus ? $status->value : $status);
     }
 
-    public function scopeNotStarted($query)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeNotStarted(Builder $query): Builder
     {
         return $query->where('status', LessonProgressStatus::NOT_STARTED);
     }
 
-    public function scopeInProgress($query)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeInProgress(Builder $query): Builder
     {
         return $query->where('status', LessonProgressStatus::IN_PROGRESS);
     }
 
-    public function scopeCompleted($query)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeCompleted(Builder $query): Builder
     {
         return $query->where('status', LessonProgressStatus::COMPLETED);
     }
 
-    public function scopeByEnrollment($query, string $enrollmentId)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeByEnrollment(Builder $query, string $enrollmentId): Builder
     {
         return $query->where('enrollment_id', $enrollmentId);
     }
 
-    public function scopeByLesson($query, string $lessonId)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeByLesson(Builder $query, string $lessonId): Builder
     {
         return $query->where('lesson_id', $lessonId);
     }
 
-    public function scopeFavorites($query)
+    /**
+     * @param Builder<LessonProgress> $query
+     * @return Builder<LessonProgress>
+     */
+    public function scopeFavorites(Builder $query): Builder
     {
         return $query->where('is_favorite', true);
     }

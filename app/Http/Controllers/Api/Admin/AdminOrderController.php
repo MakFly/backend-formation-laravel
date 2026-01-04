@@ -200,16 +200,22 @@ final class AdminOrderController extends Controller
                 'net' => (float) ($totalRevenue - $totalRefunded),
                 'average_order_value' => (float) $averageOrderValue,
             ],
-            'by_payment_method' => $byPaymentMethod->map(fn ($stat) => [
-                'method' => $stat->payment_method_type,
-                'count' => $stat->count,
-                'revenue' => (float) $stat->revenue,
-            ]),
-            'by_status' => $byStatus->map(fn ($stat) => [
-                'status' => $stat->status,
-                'count' => $stat->count,
-                'total' => (float) $stat->total,
-            ]),
+            'by_payment_method' => $byPaymentMethod->map(
+                /** @return array<string, mixed> */
+                fn ($stat) => [
+                    'method' => $stat->payment_method_type,
+                    'count' => $stat->count,
+                    'revenue' => (float) $stat->revenue,
+                ]
+            ),
+            'by_status' => $byStatus->map(
+                /** @return array<string, mixed> */
+                fn ($stat) => [
+                    'status' => $stat->status,
+                    'count' => $stat->count,
+                    'total' => (float) $stat->total,
+                ]
+            ),
         ]);
     }
 

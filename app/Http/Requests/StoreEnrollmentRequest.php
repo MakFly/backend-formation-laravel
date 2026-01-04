@@ -13,6 +13,7 @@ final class StoreEnrollmentRequest extends FormRequest
         return true;
     }
 
+    /** @return array<string, array<int, mixed>> */
     public function rules(): array
     {
         return [
@@ -24,6 +25,7 @@ final class StoreEnrollmentRequest extends FormRequest
         ];
     }
 
+    /** @return array<string, string> */
     public function messages(): array
     {
         return [

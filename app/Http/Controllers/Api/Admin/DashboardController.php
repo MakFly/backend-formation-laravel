@@ -210,6 +210,8 @@ final class DashboardController extends Controller
 
     /**
      * Get revenue by month for the last N months.
+     *
+     * @return array<string, mixed>
      */
     private function getRevenueByMonth(int $months): array
     {
@@ -234,10 +236,13 @@ final class DashboardController extends Controller
                 ->get();
         }
 
-        return $data->map(fn ($d) => [
-            'year' => $d->year,
-            'month' => $d->month,
-            'revenue' => (float) $d->revenue,
-        ])->toArray();
+        return $data->map(
+            /** @return array<string, mixed> */
+            fn ($d) => [
+                'year' => $d->year,
+                'month' => $d->month,
+                'revenue' => (float) $d->revenue,
+            ]
+        )->toArray();
     }
 }

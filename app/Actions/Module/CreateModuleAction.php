@@ -10,6 +10,9 @@ use Illuminate\Support\Str;
 
 final readonly class CreateModuleAction
 {
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function __invoke(array $data, Formation $formation): Module
     {
         if (! isset($data['slug'])) {

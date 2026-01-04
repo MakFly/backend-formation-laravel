@@ -26,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property bool $is_published
  * @property bool $is_free
  * @property Carbon|null $published_at
- * @property array|null $metadata
+ * @property array<string, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -88,11 +88,13 @@ final class Module extends Model
         'lesson_count',
     ];
 
+    /** @return BelongsTo<Formation, $this> */
     public function formation(): BelongsTo
     {
         return $this->belongsTo(Formation::class);
     }
 
+    /** @return HasMany<Lesson, $this> */
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class)->orderBy('order');
@@ -103,24 +105,40 @@ final class Module extends Model
         return $this->lessons()->count();
     }
 
-    public function scopePublished($query)
+    /**
+     * @param Builder<Module> $query
+     * @return Builder<Module>
+     */
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now());
     }
 
-    public function scopeFree($query)
+    /**
+     * @param Builder<Module> $query
+     * @return Builder<Module>
+     */
+    public function scopeFree(Builder $query): Builder
     {
         return $query->where('is_free', true);
     }
 
-    public function scopeByFormation($query, string $formationId)
+    /**
+     * @param Builder<Module> $query
+     * @return Builder<Module>
+     */
+    public function scopeByFormation(Builder $query, string $formationId): Builder
     {
         return $query->where('formation_id', $formationId);
     }
 
-    public function scopeOrdered($query)
+    /**
+     * @param Builder<Module> $query
+     * @return Builder<Module>
+     */
+    public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderBy('order');
     }

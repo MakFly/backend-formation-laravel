@@ -9,6 +9,9 @@ use App\Models\LessonResource;
 
 final readonly class CreateLessonResourceAction
 {
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function __invoke(array $data, Lesson $lesson): LessonResource
     {
         $resource = new LessonResource($data);

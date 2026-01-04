@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 final class CertificateResource extends JsonResource
 {
+    /** @return array<string, mixed> */
     public function toArray(Request $request): array
     {
         return [

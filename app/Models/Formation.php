@@ -29,12 +29,12 @@ use Illuminate\Support\Carbon;
  * @property string|null $mode
  * @property string|null $thumbnail
  * @property string|null $video_trailer
- * @property array|null $tags
- * @property array|null $objectives
- * @property array|null $requirements
- * @property array|null $target_audience
+ * @property array<int, string>|null $tags
+ * @property array<int, string>|null $objectives
+ * @property array<int, string>|null $requirements
+ * @property array<int, string>|null $target_audience
  * @property string|null $language
- * @property array|null $subtitles
+ * @property array<int, string>|null $subtitles
  * @property string|null $difficulty_level
  * @property int $duration_hours
  * @property int $duration_minutes
@@ -51,8 +51,8 @@ use Illuminate\Support\Carbon;
  * @property int $enrollment_count
  * @property float $average_rating
  * @property int $review_count
- * @property array|null $content_mdx
- * @property array|null $metadata
+ * @property array<string, mixed>|null $content_mdx
+ * @property array<string, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -163,26 +163,31 @@ final class Formation extends Model
         'total_duration',
     ];
 
+    /** @return BelongsTo<Category, $this> */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    /** @return HasMany<Module, $this> */
     public function modules(): HasMany
     {
         return $this->hasMany(Module::class)->orderBy('order');
     }
 
+    /** @return HasManyThrough<Lesson, Module, $this> */
     public function lessons(): HasManyThrough
     {
         return $this->hasManyThrough(Lesson::class, Module::class);
     }
 
+    /** @return HasMany<Enrollment, $this> */
     public function enrollments(): HasMany
     {
         return $this->hasMany(Enrollment::class);
     }
 
+    /** @return HasMany<Payment, $this> */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
@@ -201,54 +206,95 @@ final class Formation extends Model
         return "{$minutes}min";
     }
 
-    public function scopePublished($query)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now());
     }
 
-    public function scopeFeatured($query)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
     }
 
-    public function scopeByCategory($query, string $categoryId)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeByCategory(Builder $query, string $categoryId): Builder
     {
         return $query->where('category_id', $categoryId);
     }
 
-    public function scopeByPricingTier($query, PricingTier $tier)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeByPricingTier(Builder $query, PricingTier $tier): Builder
     {
         return $query->where('pricing_tier', $tier->value);
     }
 
-    public function scopeByMode($query, string $mode)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeByMode(Builder $query, string $mode): Builder
     {
         return $query->where('mode', $mode);
     }
 
-    public function scopeFree($query)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeFree(Builder $query): Builder
     {
         return $query->where('price', 0)->orWhere('pricing_tier', PricingTier::FREE);
     }
 
-    public function scopePaid($query)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopePaid(Builder $query): Builder
     {
         return $query->where('price', '>', 0);
     }
 
-    public function scopeByDifficulty($query, string $level)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeByDifficulty(Builder $query, string $level): Builder
     {
         return $query->where('difficulty_level', $level);
     }
 
-    public function scopeByLanguage($query, string $language)
+    /**
+     * @param Builder<Formation> $query
+     * @return Builder<Formation>
+     */
+    public function scopeByLanguage(Builder $query, string $language): Builder
     {
         return $query->where('language', $language);
     }
 
-    public function scopeWithTags($query, array $tags)
+    /**
+     * @param Builder<Formation> $query
+     * @param array<int, string> $tags
+     * @return Builder<Formation>
+     */
+    public function scopeWithTags(Builder $query, array $tags): Builder
     {
         return $query->whereJsonContains('tags', $tags);
     }

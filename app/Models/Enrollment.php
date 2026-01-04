@@ -29,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property int $access_count
  * @property float|null $amount_paid
  * @property string|null $payment_reference
- * @property array|null $metadata
+ * @property array<string, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -96,53 +96,84 @@ final class Enrollment extends Model
         'metadata' => 'array',
     ];
 
+    /** @return BelongsTo<Customer, $this> */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
+    /** @return BelongsTo<Formation, $this> */
     public function formation(): BelongsTo
     {
         return $this->belongsTo(Formation::class);
     }
 
+    /** @return HasMany<LessonProgress, $this> */
     public function lessonProgress(): HasMany
     {
         return $this->hasMany(LessonProgress::class);
     }
 
     // Scopes
-    public function scopeByStatus($query, EnrollmentStatus|string $status)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByStatus(Builder $query, EnrollmentStatus|string $status): Builder
     {
         return $query->where('status', $status instanceof EnrollmentStatus ? $status->value : $status);
     }
 
-    public function scopeActive($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('status', EnrollmentStatus::ACTIVE);
     }
 
-    public function scopeCompleted($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeCompleted(Builder $query): Builder
     {
         return $query->where('status', EnrollmentStatus::COMPLETED);
     }
 
-    public function scopePending($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopePending(Builder $query): Builder
     {
         return $query->where('status', EnrollmentStatus::PENDING);
     }
 
-    public function scopeByCustomer($query, string $customerId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByCustomer(Builder $query, string $customerId): Builder
     {
         return $query->where('customer_id', $customerId);
     }
 
-    public function scopeByFormation($query, string $formationId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByFormation(Builder $query, string $formationId): Builder
     {
         return $query->where('formation_id', $formationId);
     }
 
-    public function scopeRecent($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeRecent(Builder $query): Builder
     {
         return $query->orderBy('enrolled_at', 'desc');
     }

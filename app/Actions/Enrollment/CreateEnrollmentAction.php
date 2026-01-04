@@ -16,7 +16,7 @@ final readonly class CreateEnrollmentAction
     /**
      * Create a new enrollment for a customer in a formation.
      *
-     * @param  array{amount_paid?: float, payment_reference?: string|null, metadata?: array|null}  $data
+     * @param  array<string, mixed>  $data
      */
     public function __invoke(Customer $customer, Formation $formation, array $data = []): Enrollment
     {

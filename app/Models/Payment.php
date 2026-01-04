@@ -32,8 +32,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $description
  * @property string|null $failure_reason
  * @property string|null $failure_code
- * @property array|null $metadata
- * @property array|null $stripe_response
+ * @property array<string, mixed>|null $metadata
+ * @property array<string, mixed>|null $stripe_response
  * @property Carbon|null $paid_at
  * @property Carbon|null $refunded_at
  * @property Carbon|null $failed_at
@@ -117,88 +117,147 @@ final class Payment extends Model
     ];
 
     // Relations
+    /** @return BelongsTo<Customer, $this> */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
+    /** @return BelongsTo<Enrollment, $this> */
     public function enrollment(): BelongsTo
     {
         return $this->belongsTo(Enrollment::class);
     }
 
+    /** @return BelongsTo<Formation, $this> */
     public function formation(): BelongsTo
     {
         return $this->belongsTo(Formation::class);
     }
 
     // Scopes
-    public function scopeByStatus($query, PaymentStatus|string $status)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByStatus(Builder $query, PaymentStatus|string $status): Builder
     {
         return $query->where('status', $status instanceof PaymentStatus ? $status->value : $status);
     }
 
-    public function scopeByType($query, PaymentType|string $type)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByType(Builder $query, PaymentType|string $type): Builder
     {
         return $query->where('type', $type instanceof PaymentType ? $type->value : $type);
     }
 
-    public function scopeByCustomer($query, string $customerId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByCustomer(Builder $query, string $customerId): Builder
     {
         return $query->where('customer_id', $customerId);
     }
 
-    public function scopeByFormation($query, string $formationId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByFormation(Builder $query, string $formationId): Builder
     {
         return $query->where('formation_id', $formationId);
     }
 
-    public function scopeByStripePaymentIntent($query, string $paymentIntentId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByStripePaymentIntent(Builder $query, string $paymentIntentId): Builder
     {
         return $query->where('stripe_payment_intent_id', $paymentIntentId);
     }
 
-    public function scopeByStripeCheckoutSession($query, string $sessionId)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByStripeCheckoutSession(Builder $query, string $sessionId): Builder
     {
         return $query->where('stripe_checkout_session_id', $sessionId);
     }
 
-    public function scopePending($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopePending(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::PENDING);
     }
 
-    public function scopeProcessing($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeProcessing(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::PROCESSING);
     }
 
-    public function scopeCompleted($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeCompleted(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::COMPLETED);
     }
 
-    public function scopeFailed($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeFailed(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::FAILED);
     }
 
-    public function scopeRefunded($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeRefunded(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::REFUNDED);
     }
 
-    public function scopePartiallyRefunded($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopePartiallyRefunded(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::PARTIALLY_REFUNDED);
     }
 
-    public function scopeSuccessful($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeSuccessful(Builder $query): Builder
     {
         return $query->where('status', PaymentStatus::COMPLETED);
     }
 
-    public function scopeNotFailed($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeNotFailed(Builder $query): Builder
     {
         return $query->whereNot('status', PaymentStatus::FAILED);
     }

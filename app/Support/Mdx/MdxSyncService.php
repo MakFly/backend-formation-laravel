@@ -44,6 +44,9 @@ final class MdxSyncService
         return $path;
     }
 
+    /**
+     * @return array<string, mixed>|null
+     */
     public function importFormation(string $slug): ?array
     {
         $path = sprintf($this->mdxPath, $slug);
@@ -57,6 +60,9 @@ final class MdxSyncService
         return $this->parseMdxFrontmatter($content);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function syncBidirectional(Formation $formation): array
     {
         $results = [];
@@ -75,6 +81,9 @@ final class MdxSyncService
         return $results;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function syncAllFormations(): array
     {
         $results = [];
@@ -135,6 +144,13 @@ final class MdxSyncService
     {
         return new class($formation->title, $formation->slug, $formation->summary, $formation->pricing_tier->value, (float) $formation->price, $formation->mode, $formation->thumbnail, $formation->video_trailer, $formation->tags ?? [], $formation->objectives ?? [], $formation->requirements ?? [], $formation->target_audience ?? [], $formation->language, $formation->subtitles ?? [], $formation->difficulty_level, $formation->duration_hours, $formation->duration_minutes, $formation->instructor_name, $formation->instructor_title, $formation->instructor_avatar, $formation->instructor_bio, $formation->is_published, $formation->is_featured)
         {
+            /**
+             * @param array<int, string> $tags
+             * @param array<int, string> $objectives
+             * @param array<int, string> $requirements
+             * @param array<int, string> $target_audience
+             * @param array<int, string> $subtitles
+             */
             public function __construct(
                 public readonly string $title,
                 public readonly string $slug,
@@ -244,6 +260,9 @@ final class MdxSyncService
         };
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function parseMdxFrontmatter(string $content): array
     {
         preg_match('/^---(.*?)---(.*)$/s', $content, $matches);
@@ -261,6 +280,9 @@ final class MdxSyncService
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function yamlToArray(string $yaml): array
     {
         $lines = explode("\n", $yaml);
@@ -330,6 +352,9 @@ final class MdxSyncService
         return $result;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function arrayToYaml(array $data): string
     {
         $yaml = '';
@@ -348,6 +373,10 @@ final class MdxSyncService
         return $yaml;
     }
 
+    /**
+     * @param array<string, mixed> $mdxData
+     * @return array<string, mixed>
+     */
     public function mapMdxToFormation(array $mdxData): array
     {
         $frontmatter = $mdxData['frontmatter'] ?? [];

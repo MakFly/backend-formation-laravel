@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 final class ModuleCollection extends ResourceCollection
 {
+    /** @return array<string, mixed> */
     public function toArray($request): array
     {
         return [

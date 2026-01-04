@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 
 final readonly class UpdateModuleAction
 {
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public function __invoke(Module $module, array $data): Module
     {
         if (isset($data['title']) && ! isset($data['slug'])) {

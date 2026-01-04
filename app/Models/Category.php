@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,32 +44,47 @@ final class Category extends Model
         'metadata',
     ];
 
+    /** @return BelongsTo<Category, $this> */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
 
+    /** @return HasMany<Category, $this> */
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id')->orderBy('order');
     }
 
+    /** @return HasMany<Formation, $this> */
     public function formations(): HasMany
     {
         return $this->hasMany(Formation::class);
     }
 
-    public function scopeActive($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
     }
 
-    public function scopeRoot($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeRoot(Builder $query): Builder
     {
         return $query->whereNull('parent_id');
     }
 
-    public function scopeOrdered($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeOrdered(Builder $query): Builder
     {
         return $query->orderBy('order');
     }

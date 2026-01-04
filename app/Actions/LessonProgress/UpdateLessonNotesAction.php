@@ -14,7 +14,7 @@ final readonly class UpdateLessonNotesAction
     /**
      * Update student notes for a lesson.
      *
-     * @param  array{highlights?: array[], bookmarks?: array[], personal_notes?: string}  $notes
+     * @param  array<string, mixed>  $notes
      */
     public function __invoke(
         Enrollment $enrollment,

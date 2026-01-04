@@ -23,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $company_name
  * @property string|null $company_siret
  * @property string|null $company_tva_number
- * @property array|null $metadata
+ * @property array<string, mixed>|null $metadata
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
@@ -67,11 +67,13 @@ final class Customer extends Model
         'metadata' => 'array',
     ];
 
+    /** @return HasMany<Enrollment, $this> */
     public function enrollments(): HasMany
     {
         return $this->hasMany(Enrollment::class);
     }
 
+    /** @return HasMany<Payment, $this> */
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);
@@ -92,17 +94,29 @@ final class Customer extends Model
         return $this->type === 'company';
     }
 
-    public function scopeIndividual($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeIndividual(Builder $query): Builder
     {
         return $query->where('type', 'individual');
     }
 
-    public function scopeCompany($query)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeCompany(Builder $query): Builder
     {
         return $query->where('type', 'company');
     }
 
-    public function scopeByEmail($query, string $email)
+    /**
+     * @param Builder<static> $query
+     * @return Builder<static>
+     */
+    public function scopeByEmail(Builder $query, string $email): Builder
     {
         return $query->where('email', $email);
     }
