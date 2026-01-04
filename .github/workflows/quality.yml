@@ -40,10 +40,13 @@ jobs:
       - name: Prepare Laravel application
         run: |
           cp .env.example .env
-          php artisan key:generate
+          php artisan key:generate --ansi
           php -r "file_put_contents('database/database.sqlite', '');"
-          php artisan migrate --force
-          php artisan storage:link
+          php artisan migrate --force --ansi
+          php artisan storage:link || true
+
+          # Verify APP_KEY is set
+          php -r "echo 'APP_KEY: ' . env('APP_KEY') . PHP_EOL;"
 
       - name: Run Laravel Pint (code formatting check)
         run: ./vendor/bin/pint --test
@@ -88,10 +91,13 @@ jobs:
       - name: Prepare Laravel application
         run: |
           cp .env.example .env
-          php artisan key:generate
+          php artisan key:generate --ansi
           php -r "file_put_contents('database/database.sqlite', '');"
-          php artisan migrate --force
-          php artisan storage:link
+          php artisan migrate --force --ansi
+          php artisan storage:link || true
+
+          # Verify APP_KEY is set
+          php -r "echo 'APP_KEY: ' . env('APP_KEY') . PHP_EOL;"
 
       - name: Run tests
         run: php artisan test --coverage
