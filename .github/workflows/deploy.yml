@@ -1,0 +1,235 @@
+name: Deploy
+
+# ⚠️ DISABLED BY DEFAULT - To enable, uncomment one of the triggers below or use manual dispatch
+on:
+  # Uncomment to enable on push to main
+  # push:
+  #   branches: [main]
+  # Uncomment to enable on tag creation
+  # on:
+  #   tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+env:
+  PHP_VERSION: '8.4'
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging
+    # Only run if environment is staging
+    if: github.event.inputs.environment == 'staging' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.your-domain.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, pdo, pgsql, bcmath, gd
+          tools: composer:v2
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: laravel-app
+          path: .
+
+      - name: Deploy to staging server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.STAGING_HOST }}
+          username: ${{ secrets.STAGING_USER }}
+          key: ${{ secrets.STAGING_SSH_KEY }}
+          port: ${{ secrets.STAGING_PORT || 22 }}
+          script_stop: true
+          script: |
+            cd /var/www/training-platform-api
+            git pull origin main
+            composer install --optimize-autoloader --no-dev --no-interaction
+            php artisan migrate --force --no-interaction
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            php artisan optimize
+            php artisan storage:link || true
+            chmod -R 755 storage bootstrap/cache
+            chown -R www-data:www-data storage bootstrap/cache
+            sudo systemctl reload php-fpm
+            sudo systemctl reload nginx
+
+      - name: Health check
+        run: |
+          sleep 5
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://staging.your-domain.com/api/health)
+          if [ $response -eq 200 ]; then
+            echo "Deployment successful: API is healthy"
+          else
+            echo "Deployment failed: API health check returned $response"
+            exit 1
+          fi
+
+      - name: Notify deployment success
+        if: success()
+        run: echo "Deployed to staging successfully"
+
+  deploy-production:
+    name: Deploy to Production
+    # Only run if environment is production
+    if: github.event.inputs.environment == 'production'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://your-domain.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, pdo, pgsql, bcmath, gd
+          tools: composer:v2
+
+      - name: Create deployment backup
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_PORT || 22 }}
+          script_stop: true
+          script: |
+            cd /var/www/training-platform-api
+            BACKUP_DIR="/var/backups/training-platform-api/$(date +%Y%m%d_%H%M%S)"
+            sudo mkdir -p $BACKUP_DIR
+            sudo cp -r . $BACKUP_DIR/
+            echo "Backup created at $BACKUP_DIR"
+
+      - name: Deploy to production server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_PORT || 22 }}
+          script_stop: true
+          script: |
+            cd /var/www/training-platform-api
+            git fetch origin
+            git checkout ${{ github.sha }}
+            composer install --optimize-autoloader --no-dev --no-interaction
+            php artisan migrate --force --no-interaction
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+            php artisan optimize
+            php artisan storage:link || true
+            chmod -R 755 storage bootstrap/cache
+            chown -R www-data:www-data storage bootstrap/cache
+            sudo systemctl reload php-fpm
+            sudo systemctl reload nginx
+
+      - name: Health check
+        run: |
+          sleep 10
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://your-domain.com/api/health)
+          if [ $response -eq 200 ]; then
+            echo "Deployment successful: API is healthy"
+          else
+            echo "Deployment failed: API health check returned $response"
+            exit 1
+          fi
+
+      - name: Rollback on failure
+        if: failure()
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          port: ${{ secrets.PRODUCTION_PORT || 22 }}
+          script_stop: true
+          script: |
+            BACKUP_DIR=$(ls -t /var/backups/training-platform-api/ | head -1)
+            cd /var/www/training-platform-api
+            sudo rm -rf *
+            sudo cp -r /var/backups/training-platform-api/$BACKUP_DIR/* .
+            sudo systemctl reload php-fpm
+            sudo systemctl reload nginx
+            echo "Rolled back to $BACKUP_DIR"
+
+      - name: Notify deployment success
+        if: success()
+        run: echo "Deployed to production successfully"
+
+  docker-deploy:
+    name: Deploy via Docker
+    runs-on: ubuntu-latest
+    if: github.event.inputs.environment == 'production'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to production via Docker
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DOCKER_HOST }}
+          username: ${{ secrets.DOCKER_USER }}
+          key: ${{ secrets.DOCKER_SSH_KEY }}
+          port: ${{ secrets.DOCKER_PORT || 22 }}
+          script_stop: true
+          env: |
+            REGISTRY: ${{ secrets.DOCKER_USERNAME }}
+            IMAGE_TAG: ${{ github.sha }}
+          script: |
+            docker pull $REGISTRY/training-platform-api:$IMAGE_TAG
+            docker stop training-platform-api || true
+            docker rm training-platform-api || true
+            docker run -d \
+              --name training-platform-api \
+              --restart unless-stopped \
+              -p 80:80 \
+              -e APP_ENV=production \
+              -e APP_DEBUG=false \
+              -e DB_CONNECTION=pgsql \
+              -e DB_HOST=${DB_HOST} \
+              -e DB_PORT=${DB_PORT} \
+              -e DB_DATABASE=${DB_DATABASE} \
+              -e DB_USERNAME=${DB_USERNAME} \
+              -e DB_PASSWORD=${DB_PASSWORD} \
+              -e STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY} \
+              -e STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET} \
+              -e JWT_SECRET=${JWT_SECRET} \
+              $REGISTRY/training-platform-api:$IMAGE_TAG
+            docker system prune -f
+
+      - name: Health check
+        run: |
+          sleep 15
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://your-domain.com/api/health)
+          if [ $response -eq 200 ]; then
+            echo "Docker deployment successful: API is healthy"
+          else
+            echo "Docker deployment failed: API health check returned $response"
+            exit 1
+          fi
