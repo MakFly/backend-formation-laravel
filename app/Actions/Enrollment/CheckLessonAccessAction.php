@@ -6,6 +6,7 @@ namespace App\Actions\Enrollment;
 
 use App\Models\Enrollment;
 use App\Models\Lesson;
+use App\Models\Module;
 
 final readonly class CheckLessonAccessAction
 {
@@ -42,12 +43,14 @@ final readonly class CheckLessonAccessAction
         }
 
         // Check module order - user must complete previous modules first
+        /** @var Module|null $lessonModule */
         $lessonModule = $lesson->module;
         if ($lessonModule === null) {
             return ['accessible' => false, 'reason' => 'Lesson is not assigned to a module'];
         }
 
         // Get all modules in the formation
+        /** @var \Illuminate\Database\Eloquent\Collection<int, Module> $modules */
         $modules = $enrollment->formation->modules()->ordered()->get();
         $currentModuleIndex = $modules->search(fn ($m) => $m->id === $lessonModule->id);
 
@@ -79,7 +82,7 @@ final readonly class CheckLessonAccessAction
         return ['accessible' => true];
     }
 
-    private function isModuleCompleted(Enrollment $enrollment, $module): bool
+    private function isModuleCompleted(Enrollment $enrollment, Module $module): bool
     {
         $moduleLessonIds = $module->lessons()->pluck('id');
         $completedCount = $enrollment->lessonProgress()

@@ -18,11 +18,11 @@ final readonly class DuplicateFormationAction
             // Duplicate formation
             $duplicate = $formation->replicate();
             $duplicate->title = "Copy of {$formation->title}";
-            $duplicate->slug = null; // Will be regenerated
+            $duplicate->slug = ''; // Will be regenerated
             $duplicate->is_published = false;
             $duplicate->published_at = null;
             $duplicate->enrollment_count = 0;
-            $duplicate->average_rating = null;
+            $duplicate->average_rating = 0.0;
             $duplicate->review_count = 0;
             $duplicate->save();
 

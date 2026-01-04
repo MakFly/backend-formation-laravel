@@ -44,7 +44,9 @@ final readonly class CreateEnrollmentAction
             $enrollment->save();
 
             // Update formation enrollment count
-            $formation->increment('enrollment_count');
+            DB::table('formations')
+                ->where('id', $formation->id)
+                ->increment('enrollment_count');
 
             return $enrollment->load(['customer', 'formation']);
         });

@@ -15,6 +15,7 @@ final readonly class ProcessPaymentAction
      */
     public function __invoke(string $stripePaymentIntentId, ?string $paymentMethodType = null): Payment
     {
+        /** @var Payment $payment */
         $payment = Payment::byStripePaymentIntent($stripePaymentIntentId)->first();
 
         if (! $payment) {

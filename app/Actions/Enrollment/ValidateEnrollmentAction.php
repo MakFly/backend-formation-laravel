@@ -24,7 +24,7 @@ final readonly class ValidateEnrollmentAction
         $formation = $enrollment->formation;
         $isPaid = $enrollment->amount_paid > 0;
         $isFreeTier = $formation->pricing_tier === PricingTier::FREE;
-        $isFreeFormation = $formation->price === 0;
+        $isFreeFormation = $formation->price === 0.0;
 
         // Activate if free or paid
         if ($isFreeTier || $isFreeFormation || $isPaid) {
