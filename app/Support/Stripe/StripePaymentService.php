@@ -59,8 +59,8 @@ class StripePaymentService
                     'quantity' => 1,
                 ]],
                 'mode' => 'payment',
-                'success_url' => config('app.url') . '/api/v1/payments/success?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => config('app.url') . '/api/v1/payments/cancel?session_id={CHECKOUT_SESSION_ID}',
+                'success_url' => config('app.url').'/api/v1/payments/success?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => config('app.url').'/api/v1/payments/cancel?session_id={CHECKOUT_SESSION_ID}',
                 'customer_email' => $customer->email,
                 'metadata' => [
                     'payment_id' => $payment->id,
@@ -103,8 +103,6 @@ class StripePaymentService
 
     /**
      * Create a refund.
-     *
-     * @return StripeRefund
      */
     public function createRefund(Payment $payment, float $amount, ?string $reason = null): StripeRefund
     {
@@ -159,11 +157,13 @@ class StripePaymentService
                 $signature,
                 $webhookSecret
             );
+
             return true;
         } catch (\Exception $e) {
             Log::error('Stripe webhook signature verification failed', [
                 'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }

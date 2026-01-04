@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\LessonResourceType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 final class LessonResource extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -75,19 +76,19 @@ final class LessonResource extends Model
 
     public function getHumanReadableSizeAttribute(): string
     {
-        if (!$this->file_size) {
+        if (! $this->file_size) {
             return 'Unknown';
         }
 
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
         $power = $this->file_size > 0 ? floor(log($this->file_size, 1024)) : 0;
 
-        return number_format($this->file_size / (1024 ** $power), 2) . ' ' . $units[$power];
+        return number_format($this->file_size / (1024 ** $power), 2).' '.$units[$power];
     }
 
     public function getHumanReadableDurationAttribute(): ?string
     {
-        if (!$this->duration) {
+        if (! $this->duration) {
             return null;
         }
 

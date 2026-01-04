@@ -35,9 +35,9 @@ final class PaymentResource extends JsonResource
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
             'relationships' => [
-                'customer' => $this->when($this->relationLoaded('customer'), fn() => CustomerResource::make($this->customer)),
-                'enrollment' => $this->when($this->relationLoaded('enrollment'), fn() => EnrollmentResource::make($this->enrollment)),
-                'formation' => $this->when($this->relationLoaded('formation'), fn() => FormationResource::make($this->formation)),
+                'customer' => $this->when($this->relationLoaded('customer'), fn () => CustomerResource::make($this->customer)),
+                'enrollment' => $this->when($this->relationLoaded('enrollment'), fn () => EnrollmentResource::make($this->enrollment)),
+                'formation' => $this->when($this->relationLoaded('formation'), fn () => FormationResource::make($this->formation)),
             ],
         ];
     }

@@ -13,9 +13,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class LessonProgress extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -125,6 +126,7 @@ final class LessonProgress extends Model
         if ($minutes > 0) {
             return sprintf('%dm %ds', $minutes, $secs);
         }
+
         return sprintf('%ds', $secs);
     }
 
@@ -163,7 +165,7 @@ final class LessonProgress extends Model
             $this->current_position = $position;
         }
 
-        if ($this->progress_percentage >= 100 && !$this->isCompleted()) {
+        if ($this->progress_percentage >= 100 && ! $this->isCompleted()) {
             $this->markAsCompleted();
         } else {
             $this->last_accessed_at = now();
@@ -195,7 +197,7 @@ final class LessonProgress extends Model
 
     public function toggleFavorite(): void
     {
-        $this->is_favorite = !$this->is_favorite;
+        $this->is_favorite = ! $this->is_favorite;
         $this->save();
     }
 

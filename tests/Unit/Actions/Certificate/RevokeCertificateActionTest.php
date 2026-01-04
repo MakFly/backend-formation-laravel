@@ -73,11 +73,11 @@ final class RevokeCertificateActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         $lesson = $formation->lessons()->first();
-        (new CompleteLessonAction())($enrollment, $lesson);
+        (new CompleteLessonAction)($enrollment, $lesson);
 
         return Certificate::factory()->active()->create([
             'enrollment_id' => $enrollment->fresh()->id,

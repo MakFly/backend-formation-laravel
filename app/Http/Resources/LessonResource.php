@@ -34,9 +34,9 @@ final class LessonResource extends JsonResource
             // Dynamic stats (added by controllers)
             'resources_count' => $resource->resources_count ?? null,
             'relationships' => [
-                'module' => $this->when($this->relationLoaded('module'), fn() => ModuleResource::make($this->module)),
-                'formation' => $this->when($this->relationLoaded('formation'), fn() => FormationResource::make($this->formation)),
-                'resources' => $this->when($this->relationLoaded('resources'), fn() => LessonResourceResource::collection($this->resources)),
+                'module' => $this->when($this->relationLoaded('module'), fn () => ModuleResource::make($this->module)),
+                'formation' => $this->when($this->relationLoaded('formation'), fn () => FormationResource::make($this->formation)),
+                'resources' => $this->when($this->relationLoaded('resources'), fn () => LessonResourceResource::collection($this->resources)),
             ],
         ];
     }

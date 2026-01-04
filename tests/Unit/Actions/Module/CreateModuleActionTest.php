@@ -19,7 +19,7 @@ final class CreateModuleActionTest extends TestCase
     public function it_creates_a_module(): void
     {
         $formation = Formation::factory()->create();
-        $action = new CreateModuleAction();
+        $action = new CreateModuleAction;
 
         $data = [
             'title' => 'Introduction Module',
@@ -42,7 +42,7 @@ final class CreateModuleActionTest extends TestCase
     public function it_auto_generates_slug(): void
     {
         $formation = Formation::factory()->create();
-        $action = new CreateModuleAction();
+        $action = new CreateModuleAction;
 
         $data = [
             'title' => 'Advanced Concepts',
@@ -57,7 +57,7 @@ final class CreateModuleActionTest extends TestCase
     public function it_uses_custom_slug(): void
     {
         $formation = Formation::factory()->create();
-        $action = new CreateModuleAction();
+        $action = new CreateModuleAction;
 
         $data = [
             'title' => 'Module Title',

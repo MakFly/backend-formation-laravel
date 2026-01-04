@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions\LessonResource;
 
-use App\Models\LessonResource;
 use App\Models\Lesson;
+use App\Models\LessonResource;
 
 final readonly class CreateLessonResourceAction
 {
@@ -14,7 +14,7 @@ final readonly class CreateLessonResourceAction
         $resource = new LessonResource($data);
         $resource->lesson_id = $lesson->id;
 
-        if (!isset($data['order'])) {
+        if (! isset($data['order'])) {
             $lastOrder = LessonResource::where('lesson_id', $lesson->id)->max('order');
             $resource->order = $lastOrder ? $lastOrder + 1 : 0;
         }

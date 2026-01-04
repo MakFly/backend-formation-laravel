@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers\Admin;
 
+use App\Enums\PaymentStatus;
 use App\Http\Controllers\Api\Admin\AdminCustomerController;
 use App\Models\Customer;
-use App\Models\Formation;
 use App\Models\Enrollment;
+use App\Models\Formation;
 use App\Models\Payment;
-use App\Enums\PaymentStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
@@ -22,7 +22,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_lists_customers_with_pagination(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         Customer::factory()->count(25)->create();
 
@@ -42,7 +42,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_filters_customers_by_search(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         Customer::factory()->create([
             'email' => 'john.doe@example.com',
@@ -69,7 +69,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_includes_customer_stats_when_requested(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
@@ -104,7 +104,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_shows_customer_details(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         $customer = Customer::factory()->create();
 
@@ -123,7 +123,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_returns_customer_enrollments(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
@@ -146,7 +146,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_returns_customer_payments(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
@@ -169,7 +169,7 @@ final class AdminCustomerControllerTest extends TestCase
     #[Test]
     public function it_returns_customer_statistics(): void
     {
-        $controller = new AdminCustomerController();
+        $controller = new AdminCustomerController;
 
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();

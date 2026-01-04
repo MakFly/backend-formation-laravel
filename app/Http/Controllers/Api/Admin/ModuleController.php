@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ModuleResource;
 use App\Models\Formation;
 use App\Models\Module;
-use App\Models\Lesson;
 use App\Support\Http\ApiResponseBuilder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -78,7 +77,7 @@ final class ModuleController extends Controller
         $validated['is_free'] = $validated['is_free'] ?? false;
 
         // Auto-set order if not provided
-        if (!isset($validated['order'])) {
+        if (! isset($validated['order'])) {
             $maxOrder = $formation->modules()->max('order') ?? 0;
             $validated['order'] = $maxOrder + 1;
         }
@@ -97,7 +96,7 @@ final class ModuleController extends Controller
 
         $validated = $request->validate([
             'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:modules,slug,' . $id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:modules,slug,'.$id],
             'description' => ['nullable', 'string'],
             'type' => ['nullable', 'in:video,text,quiz,assignment,interactive'],
             'is_published' => ['boolean'],
@@ -106,7 +105,7 @@ final class ModuleController extends Controller
         ]);
 
         // Auto-generate slug if title changed and slug not provided
-        if (isset($validated['title']) && !isset($validated['slug'])) {
+        if (isset($validated['title']) && ! isset($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
         }
 
@@ -213,7 +212,7 @@ final class ModuleController extends Controller
             ->where('id', $currentModuleId)
             ->first();
 
-        if (!$currentModule) {
+        if (! $currentModule) {
             return;
         }
 

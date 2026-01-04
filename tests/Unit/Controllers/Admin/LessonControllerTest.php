@@ -6,11 +6,10 @@ namespace Tests\Unit\Controllers\Admin;
 
 use App\Http\Controllers\Api\Admin\LessonController;
 use App\Models\Formation;
-use App\Models\Module;
 use App\Models\Lesson;
+use App\Models\Module;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -19,6 +18,7 @@ final class LessonControllerTest extends TestCase
     use RefreshDatabase;
 
     private Formation $formation;
+
     private Module $module;
 
     protected function setUp(): void
@@ -32,7 +32,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_lists_lessons_for_module(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         Lesson::factory()->count(3)->create([
             'module_id' => $this->module->id,
@@ -53,7 +53,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_lists_lessons_for_formation(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         Lesson::factory()->count(4)->create(['formation_id' => $this->formation->id]);
 
@@ -69,7 +69,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_shows_lesson_details(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -88,7 +88,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_creates_lesson(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $request = Request::create('/api/v1/lessons', 'POST', [
             'module_id' => $this->module->id,
@@ -116,7 +116,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_auto_orders_new_lessons(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -142,7 +142,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_updates_lesson(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -165,7 +165,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_deletes_lesson(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -181,7 +181,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_publishes_lesson(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -199,7 +199,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_unpublishes_lesson(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -217,7 +217,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_reorders_lessons(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson1 = Lesson::factory()->create([
             'module_id' => $this->module->id,
@@ -250,7 +250,7 @@ final class LessonControllerTest extends TestCase
     #[Test]
     public function it_returns_lesson_resources(): void
     {
-        $controller = new LessonController();
+        $controller = new LessonController;
 
         $lesson = Lesson::factory()->create([
             'module_id' => $this->module->id,

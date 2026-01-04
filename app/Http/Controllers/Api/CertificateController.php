@@ -22,8 +22,7 @@ final class CertificateController extends Controller
 {
     public function __construct(
         private CertificatePdfService $pdfService
-    ) {
-    }
+    ) {}
 
     /**
      * List certificates with optional filters.
@@ -81,7 +80,7 @@ final class CertificateController extends Controller
     {
         $result = $action($code);
 
-        if (!$result['valid']) {
+        if (! $result['valid']) {
             return response()->json([
                 'valid' => false,
                 'reason' => $result['reason'],
@@ -102,7 +101,7 @@ final class CertificateController extends Controller
     {
         $result = $action->byNumber($number);
 
-        if (!$result['valid']) {
+        if (! $result['valid']) {
             return response()->json([
                 'valid' => false,
                 'reason' => $result['reason'],
@@ -147,7 +146,7 @@ final class CertificateController extends Controller
     {
         $certificate = Certificate::findOrFail($id);
 
-        if (!$certificate->pdf_path || !Storage::disk('public')->exists($certificate->pdf_path)) {
+        if (! $certificate->pdf_path || ! Storage::disk('public')->exists($certificate->pdf_path)) {
             return response()->json([
                 'error' => 'PDF not found',
                 'message' => 'Certificate PDF has not been generated yet',

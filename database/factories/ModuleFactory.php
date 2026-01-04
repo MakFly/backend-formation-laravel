@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Module;
 use App\Models\Formation;
+use App\Models\Module;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class ModuleFactory extends Factory

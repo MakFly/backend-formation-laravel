@@ -28,7 +28,7 @@ final class StartLessonActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new StartLessonAction();
+        $action = new StartLessonAction;
 
         $progress = $action($enrollment, $lesson);
 
@@ -45,7 +45,7 @@ final class StartLessonActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new StartLessonAction();
+        $action = new StartLessonAction;
 
         $progress = $action($enrollment, $lesson, 120);
 
@@ -57,7 +57,7 @@ final class StartLessonActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new StartLessonAction();
+        $action = new StartLessonAction;
 
         // First start
         $progress = $action($enrollment, $lesson);
@@ -81,7 +81,7 @@ final class StartLessonActionTest extends TestCase
             'formation_id' => $otherFormation->id,
         ]);
 
-        $action = new StartLessonAction();
+        $action = new StartLessonAction;
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('does not belong to the enrolled formation');
@@ -98,7 +98,7 @@ final class StartLessonActionTest extends TestCase
         $enrollment->last_accessed_at = now()->subDay();
         $enrollment->save();
 
-        $action = new StartLessonAction();
+        $action = new StartLessonAction;
         $action($enrollment, $lesson);
 
         $this->assertGreaterThan(now()->subMinute(), $enrollment->fresh()->last_accessed_at);
@@ -115,8 +115,8 @@ final class StartLessonActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         return $enrollment->fresh();
     }

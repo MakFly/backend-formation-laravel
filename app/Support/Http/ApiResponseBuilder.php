@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Support\Http;
 
-use Illuminate\Http\JsonResponse;
 use App\Enums\HttpStatus;
+use Illuminate\Http\JsonResponse;
 
 final readonly class ApiResponseBuilder
 {
@@ -15,6 +15,7 @@ final readonly class ApiResponseBuilder
         HttpStatus|int $status = HttpStatus::OK
     ): JsonResponse {
         $statusCode = is_int($status) ? $status : $status->value;
+
         return response()->json([
             'success' => true,
             'message' => $message,
@@ -53,5 +54,23 @@ final readonly class ApiResponseBuilder
     public static function noContent(): JsonResponse
     {
         return response()->json(null, HttpStatus::NO_CONTENT->value);
+    }
+
+    public static function forbidden(
+        ?string $message = 'You do not have permission to perform this action'
+    ): JsonResponse {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+        ], HttpStatus::FORBIDDEN->value);
+    }
+
+    public static function notFound(
+        ?string $message = 'Resource not found'
+    ): JsonResponse {
+        return response()->json([
+            'success' => false,
+            'message' => $message,
+        ], HttpStatus::NOT_FOUND->value);
     }
 }

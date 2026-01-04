@@ -59,7 +59,7 @@ final class AdminFormationController extends Controller
 
         // Filter by instructor
         if ($request->has('instructor_name')) {
-            $query->where('instructor_name', 'like', '%' . $request->input('instructor_name') . '%');
+            $query->where('instructor_name', 'like', '%'.$request->input('instructor_name').'%');
         }
 
         // Filter by price range
@@ -194,7 +194,7 @@ final class AdminFormationController extends Controller
 
         $validated = $request->validate([
             'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:formations,slug,' . $id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:formations,slug,'.$id],
             'summary' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'pricing_tier' => ['nullable', 'in:free,premium,enterprise'],
@@ -219,7 +219,7 @@ final class AdminFormationController extends Controller
         ]);
 
         // Auto-generate slug if title changed and slug not provided
-        if (isset($validated['title']) && !isset($validated['slug'])) {
+        if (isset($validated['title']) && ! isset($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
         }
 
@@ -254,7 +254,7 @@ final class AdminFormationController extends Controller
     public function duplicate(string $id): JsonResponse
     {
         $formation = Formation::findOrFail($id);
-        $action = new DuplicateFormationAction();
+        $action = new DuplicateFormationAction;
         $duplicate = $action($formation);
 
         return ApiResponseBuilder::created(FormationResource::make($duplicate), 'Formation duplicated successfully');

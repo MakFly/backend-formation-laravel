@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Module\CreateModuleAction;
+use App\Actions\Module\DeleteModuleAction;
+use App\Actions\Module\ReorderModulesAction;
+use App\Actions\Module\UpdateModuleAction;
+use App\Enums\HttpStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreModuleRequest;
 use App\Http\Requests\UpdateModuleRequest;
-use App\Http\Resources\ModuleResource;
 use App\Http\Resources\ModuleCollection;
-use App\Actions\Module\CreateModuleAction;
-use App\Actions\Module\UpdateModuleAction;
-use App\Actions\Module\DeleteModuleAction;
-use App\Actions\Module\ReorderModulesAction;
+use App\Http\Resources\ModuleResource;
 use App\Models\Formation;
 use App\Models\Module;
 use App\Support\Http\ApiResponseBuilder;
-use App\Enums\HttpStatus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -38,7 +38,7 @@ final class ModuleController extends Controller
     public function store(StoreModuleRequest $request, string $formationId): JsonResponse
     {
         $formation = Formation::findOrFail($formationId);
-        $action = new CreateModuleAction();
+        $action = new CreateModuleAction;
         $module = $action($request->validated(), $formation);
 
         return ApiResponseBuilder::success(
@@ -66,7 +66,7 @@ final class ModuleController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        $action = new UpdateModuleAction();
+        $action = new UpdateModuleAction;
         $module = $action($module, $request->validated());
 
         return ApiResponseBuilder::success(
@@ -81,7 +81,7 @@ final class ModuleController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        $action = new DeleteModuleAction();
+        $action = new DeleteModuleAction;
         $action($module);
 
         return ApiResponseBuilder::noContent();
@@ -96,7 +96,7 @@ final class ModuleController extends Controller
         ]);
 
         $formation = Formation::findOrFail($formationId);
-        $action = new ReorderModulesAction();
+        $action = new ReorderModulesAction;
         $action($formation, $request->input('modules'));
 
         return ApiResponseBuilder::success(

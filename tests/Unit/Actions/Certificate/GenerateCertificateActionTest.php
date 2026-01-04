@@ -8,7 +8,6 @@ use App\Actions\Certificate\GenerateCertificateAction;
 use App\Actions\Enrollment\CreateEnrollmentAction;
 use App\Actions\Enrollment\ValidateEnrollmentAction;
 use App\Actions\LessonProgress\CompleteLessonAction;
-use App\Enums\EnrollmentStatus;
 use App\Enums\PricingTier;
 use App\Models\Customer;
 use App\Models\Enrollment;
@@ -32,14 +31,14 @@ final class GenerateCertificateActionTest extends TestCase
 
         // Create storage directory and fake PDF file
         $storagePath = storage_path('app/public/certificates');
-        if (!is_dir($storagePath)) {
+        if (! is_dir($storagePath)) {
             mkdir($storagePath, 0755, true);
         }
-        file_put_contents($storagePath . '/test.pdf', 'fake pdf content');
+        file_put_contents($storagePath.'/test.pdf', 'fake pdf content');
 
         // Mock the CertificatePdfService to avoid actual file operations
         $this->partialMock(CertificatePdfService::class, function ($mock) use ($storagePath) {
-            $fakePath = $storagePath . '/test.pdf';
+            $fakePath = $storagePath.'/test.pdf';
             $mock->shouldReceive('generate')->andReturn($fakePath);
             $mock->shouldReceive('regenerate')->andReturn($fakePath);
         });
@@ -74,8 +73,8 @@ final class GenerateCertificateActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         $action = app(GenerateCertificateAction::class);
 
@@ -138,12 +137,12 @@ final class GenerateCertificateActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         // Complete the lesson from this formation
         $lesson = $formation->lessons()->first();
-        (new CompleteLessonAction())($enrollment, $lesson);
+        (new CompleteLessonAction)($enrollment, $lesson);
 
         return $enrollment->fresh();
     }

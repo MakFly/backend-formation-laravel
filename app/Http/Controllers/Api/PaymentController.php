@@ -21,8 +21,7 @@ final class PaymentController extends Controller
     public function __construct(
         private CreatePaymentAction $createPaymentAction,
         private RefundPaymentAction $refundPaymentAction
-    ) {
-    }
+    ) {}
 
     /**
      * Create a payment for a formation enrollment.
@@ -140,13 +139,13 @@ final class PaymentController extends Controller
     {
         $sessionId = $request->query('session_id');
 
-        if (!$sessionId) {
+        if (! $sessionId) {
             return ApiResponseBuilder::error('Missing session ID', 'MISSING_SESSION_ID');
         }
 
         $payment = Payment::byStripeCheckoutSession($sessionId)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             return ApiResponseBuilder::notFound('Payment not found');
         }
 

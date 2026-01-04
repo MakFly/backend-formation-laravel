@@ -16,7 +16,7 @@ final class MdxSyncCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const TEST_MDX_DIR = __DIR__ . '/../../../../storage/test_mdx_commands';
+    private const TEST_MDX_DIR = __DIR__.'/../../../../storage/test_mdx_commands';
 
     private string $testMdxPath;
 
@@ -25,11 +25,11 @@ final class MdxSyncCommandTest extends TestCase
         parent::setUp();
 
         // Créer le dossier de test
-        if (!is_dir(self::TEST_MDX_DIR)) {
+        if (! is_dir(self::TEST_MDX_DIR)) {
             mkdir(self::TEST_MDX_DIR, recursive: true);
         }
 
-        $this->testMdxPath = self::TEST_MDX_DIR . '/%s.mdx';
+        $this->testMdxPath = self::TEST_MDX_DIR.'/%s.mdx';
 
         // Remplacer le service dans le conteneur par une instance de test
         $this->app->instance(MdxSyncService::class, new MdxSyncService($this->testMdxPath));
@@ -39,7 +39,7 @@ final class MdxSyncCommandTest extends TestCase
     {
         // Nettoyer les fichiers de test
         if (is_dir(self::TEST_MDX_DIR)) {
-            $files = glob(self::TEST_MDX_DIR . '/*.mdx');
+            $files = glob(self::TEST_MDX_DIR.'/*.mdx');
             foreach ($files as $file) {
                 if (is_file($file)) {
                     unlink($file);
@@ -134,7 +134,7 @@ final class MdxSyncCommandTest extends TestCase
         $mdxContent .= "---\n\n";
         $mdxContent .= "Updated content\n";
 
-        $mdxFile = self::TEST_MDX_DIR . '/import-only-test.mdx';
+        $mdxFile = self::TEST_MDX_DIR.'/import-only-test.mdx';
         file_put_contents($mdxFile, $mdxContent);
 
         $code = Artisan::call('mdx:sync', [

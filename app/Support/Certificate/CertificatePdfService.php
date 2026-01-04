@@ -6,11 +6,11 @@ namespace App\Support\Certificate;
 
 use App\Models\Certificate;
 use Illuminate\Support\Facades\Storage;
-use RuntimeException;
 
 class CertificatePdfService
 {
     private const string DISK = 'public';
+
     private const string DIRECTORY = 'certificates';
 
     public function generate(Certificate $certificate): string
@@ -23,7 +23,7 @@ class CertificatePdfService
 
         // For now, store as HTML (PDF generation would require a library like dompdf/snappy)
         $filename = $certificate->pdf_filename;
-        $path = self::DIRECTORY . '/' . $filename;
+        $path = self::DIRECTORY.'/'.$filename;
 
         Storage::disk(self::DISK)->put($path, $html);
 

@@ -6,8 +6,8 @@ namespace Tests\Unit\Controllers\Admin;
 
 use App\Http\Controllers\Api\Admin\ModuleController;
 use App\Models\Formation;
-use App\Models\Module;
 use App\Models\Lesson;
+use App\Models\Module;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,7 +31,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_lists_modules_for_formation(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         Module::factory()->count(3)->create(['formation_id' => $this->formation->id]);
         Module::factory()->count(2)->create(); // Other formation
@@ -49,7 +49,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_shows_module_details(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create(['formation_id' => $this->formation->id]);
         Lesson::factory()->count(2)->create(['module_id' => $module->id, 'formation_id' => $this->formation->id]);
@@ -68,7 +68,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_creates_module(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $request = Request::create("/api/v1/formations/{$this->formation->id}/modules", 'POST', [
             'title' => 'Introduction to Laravel',
@@ -93,7 +93,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_auto_orders_new_modules(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         Module::factory()->create(['formation_id' => $this->formation->id, 'order' => 1]);
         Module::factory()->create(['formation_id' => $this->formation->id, 'order' => 2]);
@@ -114,7 +114,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_updates_module(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create(['formation_id' => $this->formation->id]);
 
@@ -134,7 +134,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_deletes_module(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create(['formation_id' => $this->formation->id]);
 
@@ -147,7 +147,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_prevents_deleting_module_with_lessons(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create(['formation_id' => $this->formation->id]);
         Lesson::factory()->create(['module_id' => $module->id, 'formation_id' => $this->formation->id]);
@@ -164,7 +164,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_reorders_modules(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module1 = Module::factory()->create(['formation_id' => $this->formation->id, 'order' => 1]);
         $module2 = Module::factory()->create(['formation_id' => $this->formation->id, 'order' => 2]);
@@ -191,7 +191,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_publishes_module(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create([
             'formation_id' => $this->formation->id,
@@ -209,7 +209,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_unpublishes_module(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create([
             'formation_id' => $this->formation->id,
@@ -226,7 +226,7 @@ final class ModuleControllerTest extends TestCase
     #[Test]
     public function it_returns_module_lessons(): void
     {
-        $controller = new ModuleController();
+        $controller = new ModuleController;
 
         $module = Module::factory()->create(['formation_id' => $this->formation->id]);
         Lesson::factory()->count(3)->create(['module_id' => $module->id, 'formation_id' => $this->formation->id]);

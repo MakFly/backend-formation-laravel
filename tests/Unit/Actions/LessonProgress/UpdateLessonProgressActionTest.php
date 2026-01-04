@@ -27,7 +27,7 @@ final class UpdateLessonProgressActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new UpdateLessonProgressAction();
+        $action = new UpdateLessonProgressAction;
 
         $progress = $action($enrollment, $lesson, [
             'progress_percentage' => 50,
@@ -42,7 +42,7 @@ final class UpdateLessonProgressActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new UpdateLessonProgressAction();
+        $action = new UpdateLessonProgressAction;
 
         $progress = $action($enrollment, $lesson, [
             'progress_percentage' => 100,
@@ -58,7 +58,7 @@ final class UpdateLessonProgressActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new UpdateLessonProgressAction();
+        $action = new UpdateLessonProgressAction;
 
         $progress = $action($enrollment, $lesson, [
             'progress_percentage' => 30,
@@ -73,7 +73,7 @@ final class UpdateLessonProgressActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new UpdateLessonProgressAction();
+        $action = new UpdateLessonProgressAction;
 
         $progress = $action($enrollment, $lesson, [
             'progress_percentage' => 50,
@@ -90,7 +90,7 @@ final class UpdateLessonProgressActionTest extends TestCase
 
         // Complete first lesson
         $lesson1 = $enrollment->formation->lessons()->first();
-        $action = new UpdateLessonProgressAction();
+        $action = new UpdateLessonProgressAction;
         $action($enrollment, $lesson1, ['progress_percentage' => 100]);
 
         // Enrollment progress should be 50% (1/2 lessons)
@@ -108,8 +108,8 @@ final class UpdateLessonProgressActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         return $enrollment->fresh();
     }
@@ -127,8 +127,8 @@ final class UpdateLessonProgressActionTest extends TestCase
             ]);
         }
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         return $enrollment->fresh();
     }

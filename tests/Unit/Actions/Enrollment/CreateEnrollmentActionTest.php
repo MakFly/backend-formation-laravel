@@ -23,7 +23,7 @@ final class CreateEnrollmentActionTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
-        $action = new CreateEnrollmentAction();
+        $action = new CreateEnrollmentAction;
 
         $enrollment = $action($customer, $formation, [
             'amount_paid' => 99.99,
@@ -44,7 +44,7 @@ final class CreateEnrollmentActionTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['enrollment_count' => 5]);
-        $action = new CreateEnrollmentAction();
+        $action = new CreateEnrollmentAction;
 
         $action($customer, $formation);
 
@@ -56,7 +56,7 @@ final class CreateEnrollmentActionTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
-        $action = new CreateEnrollmentAction();
+        $action = new CreateEnrollmentAction;
 
         // First enrollment
         $action($customer, $formation);
@@ -73,7 +73,7 @@ final class CreateEnrollmentActionTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
-        $action = new CreateEnrollmentAction();
+        $action = new CreateEnrollmentAction;
 
         // First enrollment
         $enrollment = $action($customer, $formation);
@@ -90,7 +90,7 @@ final class CreateEnrollmentActionTest extends TestCase
     {
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
-        $action = new CreateEnrollmentAction();
+        $action = new CreateEnrollmentAction;
 
         $enrollment = $action($customer, $formation);
 

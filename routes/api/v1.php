@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ModuleController;
-use App\Http\Controllers\Api\LessonResourceController;
-use App\Http\Controllers\Api\EnrollmentController;
-use App\Http\Controllers\Api\ProgressController;
-use App\Http\Controllers\Api\CertificateController;
-use App\Http\Controllers\Api\PaymentController;
-use App\Http\Controllers\Api\WebhookController;
-use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\AdminCustomerController;
 use App\Http\Controllers\Api\Admin\AdminFormationController;
 use App\Http\Controllers\Api\Admin\AdminOrderController;
-use App\Http\Controllers\Api\Admin\ModuleController as AdminModuleController;
+use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\LessonController as AdminLessonController;
+use App\Http\Controllers\Api\CertificateController;
+use App\Http\Controllers\Api\EnrollmentController;
+use App\Http\Controllers\Api\LessonResourceController;
+use App\Http\Controllers\Api\ModuleController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ProgressController;
+use App\Http\Controllers\Api\WebhookController;
+use Illuminate\Support\Facades\Route;
 
 // Module Routes (nested under formations)
 Route::prefix('formations/{formationId}/modules')->group(function () {

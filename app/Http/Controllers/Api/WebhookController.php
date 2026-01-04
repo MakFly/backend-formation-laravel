@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Actions\Payment\ProcessPaymentAction;
-use App\Enums\PaymentStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Support\Stripe\StripePaymentService;
@@ -18,8 +17,7 @@ final class WebhookController extends Controller
     public function __construct(
         private StripePaymentService $stripeService,
         private ProcessPaymentAction $processPaymentAction
-    ) {
-    }
+    ) {}
 
     /**
      * Handle Stripe webhook events.
@@ -30,16 +28,18 @@ final class WebhookController extends Controller
         $signature = $request->header('Stripe-Signature');
         $webhookSecret = config('services.stripe.webhook_secret');
 
-        if (!$webhookSecret) {
+        if (! $webhookSecret) {
             Log::error('Stripe webhook secret not configured');
+
             return response()->json(['error' => 'Webhook not configured'], 500);
         }
 
         // Verify webhook signature
-        if (!$this->stripeService->verifyWebhookSignature($payload, $signature, $webhookSecret)) {
+        if (! $this->stripeService->verifyWebhookSignature($payload, $signature, $webhookSecret)) {
             Log::warning('Invalid Stripe webhook signature', [
                 'signature' => $signature,
             ]);
+
             return response()->json(['error' => 'Invalid signature'], 401);
         }
 
@@ -76,15 +76,16 @@ final class WebhookController extends Controller
 
         $payment = Payment::byStripePaymentIntent($paymentIntent->id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::warning('Payment not found for succeeded intent', [
                 'payment_intent_id' => $paymentIntent->id,
             ]);
+
             return response()->json(['error' => 'Payment not found'], 404);
         }
 
         // Process payment if not already completed
-        if (!$payment->isCompleted()) {
+        if (! $payment->isCompleted()) {
             $paymentMethodType = $paymentIntent->payment_method_types[0] ?? null;
             $this->processPaymentAction->__invoke($paymentIntent->id, $paymentMethodType);
         }
@@ -106,10 +107,11 @@ final class WebhookController extends Controller
 
         $payment = Payment::byStripePaymentIntent($paymentIntent->id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::warning('Payment not found for failed intent', [
                 'payment_intent_id' => $paymentIntent->id,
             ]);
+
             return response()->json(['error' => 'Payment not found'], 404);
         }
 
@@ -135,7 +137,7 @@ final class WebhookController extends Controller
 
         $payment = Payment::byStripePaymentIntent($paymentIntent->id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             return response()->json(['error' => 'Payment not found'], 404);
         }
 
@@ -161,15 +163,16 @@ final class WebhookController extends Controller
 
         $payment = Payment::byStripeCheckoutSession($session->id)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::warning('Payment not found for completed session', [
                 'session_id' => $session->id,
             ]);
+
             return response()->json(['error' => 'Payment not found'], 404);
         }
 
         // Update payment with payment intent ID if not already set
-        if (!$payment->stripe_payment_intent_id && $session->payment_intent) {
+        if (! $payment->stripe_payment_intent_id && $session->payment_intent) {
             $payment->update([
                 'stripe_payment_intent_id' => $session->payment_intent,
             ]);
@@ -196,10 +199,11 @@ final class WebhookController extends Controller
 
         $payment = Payment::byStripePaymentIntent($charge->payment_intent)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             Log::warning('Payment not found for refunded charge', [
                 'payment_intent_id' => $charge->payment_intent,
             ]);
+
             return response()->json(['error' => 'Payment not found'], 404);
         }
 

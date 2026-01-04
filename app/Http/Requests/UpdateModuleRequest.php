@@ -17,7 +17,7 @@ final class UpdateModuleRequest extends FormRequest
     {
         return [
             'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:modules,slug,' . $this->route('module')],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:modules,slug,'.$this->route('module')],
             'description' => ['nullable', 'string'],
             'type' => ['nullable', 'in:video,text,interactive,quiz,assignment,mixed'],
             'order' => ['nullable', 'integer', 'min:0'],

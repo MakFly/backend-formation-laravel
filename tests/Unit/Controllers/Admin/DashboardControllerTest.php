@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers\Admin;
 
-use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Enums\EnrollmentStatus;
 use App\Enums\PaymentStatus;
-use App\Enums\PaymentType;
-use App\Enums\PricingTier;
+use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Models\Customer;
 use App\Models\Enrollment;
 use App\Models\Formation;
@@ -23,6 +21,7 @@ final class DashboardControllerTest extends TestCase
     use RefreshDatabase;
 
     private Formation $formation;
+
     private Customer $customer;
 
     protected function setUp(): void
@@ -40,7 +39,7 @@ final class DashboardControllerTest extends TestCase
     #[Test]
     public function it_returns_dashboard_statistics(): void
     {
-        $controller = new DashboardController();
+        $controller = new DashboardController;
 
         // Create some test data
         Payment::factory()->count(5)->completed()->create([
@@ -95,7 +94,7 @@ final class DashboardControllerTest extends TestCase
     #[Test]
     public function it_filters_by_period(): void
     {
-        $controller = new DashboardController();
+        $controller = new DashboardController;
 
         // Old payment (outside 30d window)
         Payment::factory()->create([
@@ -124,7 +123,7 @@ final class DashboardControllerTest extends TestCase
     #[Test]
     public function it_returns_revenue_analytics(): void
     {
-        $controller = new DashboardController();
+        $controller = new DashboardController;
 
         Payment::factory()->count(3)->create([
             'status' => PaymentStatus::COMPLETED,
@@ -142,7 +141,7 @@ final class DashboardControllerTest extends TestCase
     #[Test]
     public function it_returns_popular_formations(): void
     {
-        $controller = new DashboardController();
+        $controller = new DashboardController;
 
         // Create multiple formations with different enrollment counts
         $formation1 = Formation::factory()->create(['is_published' => true]);

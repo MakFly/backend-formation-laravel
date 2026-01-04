@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\LessonResource\CreateLessonResourceAction;
+use App\Actions\LessonResource\DeleteLessonResourceAction;
+use App\Actions\LessonResource\ReorderLessonResourcesAction;
+use App\Actions\LessonResource\UpdateLessonResourceAction;
+use App\Enums\HttpStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLessonResourceRequest;
 use App\Http\Requests\UpdateLessonResourceRequest;
-use App\Http\Resources\LessonResourceResource;
 use App\Http\Resources\LessonResourceCollection;
-use App\Actions\LessonResource\CreateLessonResourceAction;
-use App\Actions\LessonResource\UpdateLessonResourceAction;
-use App\Actions\LessonResource\DeleteLessonResourceAction;
-use App\Actions\LessonResource\ReorderLessonResourcesAction;
+use App\Http\Resources\LessonResourceResource;
 use App\Models\Lesson;
 use App\Models\LessonResource as LessonResourceModel;
 use App\Support\Http\ApiResponseBuilder;
-use App\Enums\HttpStatus;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -38,7 +38,7 @@ final class LessonResourceController extends Controller
     public function store(StoreLessonResourceRequest $request, string $lessonId): JsonResponse
     {
         $lesson = Lesson::findOrFail($lessonId);
-        $action = new CreateLessonResourceAction();
+        $action = new CreateLessonResourceAction;
         $resource = $action($request->validated(), $lesson);
 
         return ApiResponseBuilder::success(
@@ -66,7 +66,7 @@ final class LessonResourceController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        $action = new UpdateLessonResourceAction();
+        $action = new UpdateLessonResourceAction;
         $resource = $action($resource, $request->validated());
 
         return ApiResponseBuilder::success(
@@ -81,7 +81,7 @@ final class LessonResourceController extends Controller
             ->where('id', $id)
             ->firstOrFail();
 
-        $action = new DeleteLessonResourceAction();
+        $action = new DeleteLessonResourceAction;
         $action($resource);
 
         return ApiResponseBuilder::noContent();
@@ -96,7 +96,7 @@ final class LessonResourceController extends Controller
         ]);
 
         $lesson = Lesson::findOrFail($lessonId);
-        $action = new ReorderLessonResourcesAction();
+        $action = new ReorderLessonResourcesAction;
         $action($lesson, $request->input('resources'));
 
         return ApiResponseBuilder::success(

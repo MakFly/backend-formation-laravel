@@ -6,11 +6,11 @@ namespace App\Models;
 
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 final class Payment extends Model
 {
@@ -186,7 +186,7 @@ final class Payment extends Model
         $this->save();
     }
 
-    public function markAsCompleted(string $paymentMethodType = null): void
+    public function markAsCompleted(?string $paymentMethodType = null): void
     {
         $this->status = PaymentStatus::COMPLETED;
         $this->paid_at = now();
@@ -194,7 +194,7 @@ final class Payment extends Model
         $this->save();
     }
 
-    public function markAsFailed(string $reason = null, string $code = null): void
+    public function markAsFailed(?string $reason = null, ?string $code = null): void
     {
         $this->status = PaymentStatus::FAILED;
         $this->failed_at = now();

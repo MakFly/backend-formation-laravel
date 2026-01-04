@@ -6,7 +6,6 @@ namespace App\Actions\Enrollment;
 
 use App\Models\Enrollment;
 use App\Models\Lesson;
-use RuntimeException;
 
 final readonly class CheckLessonAccessAction
 {
@@ -18,7 +17,7 @@ final readonly class CheckLessonAccessAction
     public function __invoke(Enrollment $enrollment, Lesson $lesson): array
     {
         // Check if enrollment is active
-        if (!$enrollment->isActive()) {
+        if (! $enrollment->isActive()) {
             if ($enrollment->isPending()) {
                 return ['accessible' => false, 'reason' => 'Enrollment is pending activation'];
             }
@@ -28,6 +27,7 @@ final readonly class CheckLessonAccessAction
             if ($enrollment->status->value === 'suspended') {
                 return ['accessible' => false, 'reason' => 'Enrollment has been suspended'];
             }
+
             return ['accessible' => false, 'reason' => 'Enrollment is not active'];
         }
 
@@ -37,7 +37,7 @@ final readonly class CheckLessonAccessAction
         }
 
         // Check if lesson is published
-        if (!$lesson->is_published) {
+        if (! $lesson->is_published) {
             return ['accessible' => false, 'reason' => 'Lesson is not published'];
         }
 
@@ -61,7 +61,7 @@ final readonly class CheckLessonAccessAction
                 $previousModule = $modules[$i];
                 $previousModuleCompleted = $this->isModuleCompleted($enrollment, $previousModule);
 
-                if (!$previousModuleCompleted) {
+                if (! $previousModuleCompleted) {
                     return [
                         'accessible' => false,
                         'reason' => 'Previous modules must be completed first',

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions\Certificate;
 
 use App\Models\Certificate;
-use RuntimeException;
 
 final readonly class VerifyCertificateAction
 {
@@ -18,7 +17,7 @@ final readonly class VerifyCertificateAction
     {
         $certificate = Certificate::byVerificationCode($verificationCode)->first();
 
-        if (!$certificate) {
+        if (! $certificate) {
             return [
                 'valid' => false,
                 'certificate' => null,
@@ -58,7 +57,7 @@ final readonly class VerifyCertificateAction
     {
         $certificate = Certificate::byCertificateNumber($certificateNumber)->first();
 
-        if (!$certificate) {
+        if (! $certificate) {
             return [
                 'valid' => false,
                 'certificate' => null,

@@ -12,18 +12,17 @@ readonly class RefundPaymentAction
 {
     public function __construct(
         private StripePaymentService $stripeService
-    ) {
-    }
+    ) {}
 
     /**
      * Refund a payment.
      *
-     * @param float|null $amount Amount to refund, or null for full refund
+     * @param  float|null  $amount  Amount to refund, or null for full refund
      * @return array{payment: Payment, stripe_refund: mixed}
      */
-    public function __invoke(Payment $payment, ?float $amount = null, string $reason = null): array
+    public function __invoke(Payment $payment, ?float $amount = null, ?string $reason = null): array
     {
-        if (!$payment->canBeRefunded()) {
+        if (! $payment->canBeRefunded()) {
             throw new RuntimeException('Payment cannot be refunded');
         }
 

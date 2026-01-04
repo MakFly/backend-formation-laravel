@@ -147,21 +147,21 @@ final class DashboardController extends Controller
         $isSqlite = config('database.default') === 'sqlite';
 
         $data = match ($groupBy) {
-            'day' => $query->selectRaw("DATE(paid_at) as date, SUM(amount) as revenue")
+            'day' => $query->selectRaw('DATE(paid_at) as date, SUM(amount) as revenue')
                 ->groupBy('date')
                 ->orderBy('date')
                 ->get(),
             'week' => $query->when($isSqlite, fn ($q) => $q->selectRaw("strftime('%Y-%W', paid_at) as week, SUM(amount) as revenue"))
-                ->when(!$isSqlite, fn ($q) => $q->selectRaw('YEARWEEK(paid_at) as week, SUM(amount) as revenue'))
+                ->when(! $isSqlite, fn ($q) => $q->selectRaw('YEARWEEK(paid_at) as week, SUM(amount) as revenue'))
                 ->groupBy('week')
                 ->orderBy('week')
                 ->get(),
             'month' => $query->when($isSqlite, fn ($q) => $q->selectRaw("strftime('%Y-%m', paid_at) as month, SUM(amount) as revenue"))
-                ->when(!$isSqlite, fn ($q) => $q->selectRaw('YEAR(paid_at) as year, MONTH(paid_at) as month, SUM(amount) as revenue'))
+                ->when(! $isSqlite, fn ($q) => $q->selectRaw('YEAR(paid_at) as year, MONTH(paid_at) as month, SUM(amount) as revenue'))
                 ->when($isSqlite, fn ($q) => $q->groupBy('month'))
-                ->when(!$isSqlite, fn ($q) => $q->groupBy('year', 'month'))
+                ->when(! $isSqlite, fn ($q) => $q->groupBy('year', 'month'))
                 ->when($isSqlite, fn ($q) => $q->orderBy('month'))
-                ->when(!$isSqlite, fn ($q) => $q->orderBy('year')->orderBy('month'))
+                ->when(! $isSqlite, fn ($q) => $q->orderBy('year')->orderBy('month'))
                 ->get(),
             default => throw new \InvalidArgumentException('Invalid group_by parameter'),
         };

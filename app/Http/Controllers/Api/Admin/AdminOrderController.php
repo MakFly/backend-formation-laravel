@@ -16,8 +16,7 @@ final class AdminOrderController extends Controller
 {
     public function __construct(
         private RefundPaymentAction $refundAction
-    ) {
-    }
+    ) {}
 
     /**
      * List orders (payments) with filtering and pagination.

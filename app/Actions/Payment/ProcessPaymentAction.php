@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions\Payment;
 
-use App\Enums\PaymentStatus;
 use App\Models\Enrollment;
 use App\Models\Payment;
 use RuntimeException;
@@ -14,11 +13,11 @@ final readonly class ProcessPaymentAction
     /**
      * Process a successful payment and create enrollment if needed.
      */
-    public function __invoke(string $stripePaymentIntentId, string $paymentMethodType = null): Payment
+    public function __invoke(string $stripePaymentIntentId, ?string $paymentMethodType = null): Payment
     {
         $payment = Payment::byStripePaymentIntent($stripePaymentIntentId)->first();
 
-        if (!$payment) {
+        if (! $payment) {
             throw new RuntimeException('Payment not found');
         }
 

@@ -32,8 +32,8 @@ final class ModuleResource extends JsonResource
             'total_duration' => $resource->total_duration ?? null,
             'published_lessons_count' => $resource->published_lessons_count ?? null,
             'relationships' => [
-                'formation' => $this->when($this->relationLoaded('formation'), fn() => FormationResource::make($this->formation)),
-                'lessons' => $this->when($this->relationLoaded('lessons'), fn() => LessonResource::collection($this->lessons)),
+                'formation' => $this->when($this->relationLoaded('formation'), fn () => FormationResource::make($this->formation)),
+                'lessons' => $this->when($this->relationLoaded('lessons'), fn () => LessonResource::collection($this->lessons)),
             ],
         ];
     }

@@ -113,7 +113,7 @@ final class EnrollmentController extends Controller
 
         $result = $action($enrollment, $lesson);
 
-        if (!$result['accessible']) {
+        if (! $result['accessible']) {
             return ApiResponseBuilder::error(
                 $result['reason'],
                 'LESSON_ACCESS_DENIED',

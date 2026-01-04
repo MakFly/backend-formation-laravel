@@ -21,7 +21,7 @@ final class UpdateModuleActionTest extends TestCase
         $formation = Formation::factory()->create();
         $module = Module::factory()->make(['formation_id' => $formation->id]);
         $module->save();
-        $action = new UpdateModuleAction();
+        $action = new UpdateModuleAction;
 
         $data = [
             'title' => 'Updated Title',
@@ -45,7 +45,7 @@ final class UpdateModuleActionTest extends TestCase
             'slug' => 'original-slug',
         ]);
         $module->save();
-        $action = new UpdateModuleAction();
+        $action = new UpdateModuleAction;
 
         $updatedModule = $action($module, ['description' => 'New description']);
 
@@ -62,7 +62,7 @@ final class UpdateModuleActionTest extends TestCase
             'slug' => 'custom-slug',
         ]);
         $module->save();
-        $action = new UpdateModuleAction();
+        $action = new UpdateModuleAction;
 
         $data = [
             'title' => 'New Title',

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\CertificateStatus;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 final class Certificate extends Model
 {
@@ -129,15 +129,16 @@ final class Certificate extends Model
         if ($this->status === CertificateStatus::EXPIRED) {
             return true;
         }
+
         return $this->expires_at && $this->expires_at->isPast();
     }
 
     public function isValid(): bool
     {
-        return $this->isActive() && !$this->isExpired();
+        return $this->isActive() && ! $this->isExpired();
     }
 
-    public function markAsRevoked(string $reason = null): void
+    public function markAsRevoked(?string $reason = null): void
     {
         $this->status = CertificateStatus::REVOKED;
         $this->revoked_at = now();
@@ -161,16 +162,16 @@ final class Certificate extends Model
 
     public function generateVerificationUrl(): string
     {
-        return config('app.url') . '/api/v1/certificates/verify/' . $this->verification_code;
+        return config('app.url').'/api/v1/certificates/verify/'.$this->verification_code;
     }
 
     public function getDownloadUrlAttribute(): string
     {
-        return config('app.url') . '/api/v1/certificates/' . $this->id . '/download';
+        return config('app.url').'/api/v1/certificates/'.$this->id.'/download';
     }
 
     public function getPdfFilenameAttribute(): string
     {
-        return 'certificate-' . $this->certificate_number . '.pdf';
+        return 'certificate-'.$this->certificate_number.'.pdf';
     }
 }

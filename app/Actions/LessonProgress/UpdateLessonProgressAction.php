@@ -14,7 +14,7 @@ final readonly class UpdateLessonProgressAction
     /**
      * Update progress for a lesson.
      *
-     * @param array{progress_percentage: int, current_position?: int|null, time_spent_seconds?: int} $data
+     * @param  array{progress_percentage: int, current_position?: int|null, time_spent_seconds?: int}  $data
      */
     public function __invoke(
         Enrollment $enrollment,

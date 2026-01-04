@@ -33,7 +33,7 @@ final class CustomerResource extends JsonResource
             'completed_enrollments_count' => $resource->completed_enrollments_count ?? null,
             'total_spent' => isset($resource->total_spent) ? (float) $resource->total_spent : null,
             'relationships' => [
-                'enrollments' => $this->when($this->relationLoaded('enrollments'), fn() => EnrollmentResource::collection($this->enrollments)),
+                'enrollments' => $this->when($this->relationLoaded('enrollments'), fn () => EnrollmentResource::collection($this->enrollments)),
             ],
         ];
     }

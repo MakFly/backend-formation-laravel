@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions\Enrollment;
 
-use App\Enums\EnrollmentStatus;
 use App\Enums\PricingTier;
 use App\Models\Enrollment;
 use RuntimeException;
@@ -17,7 +16,7 @@ final readonly class ValidateEnrollmentAction
      */
     public function __invoke(Enrollment $enrollment): Enrollment
     {
-        if (!$enrollment->isPending()) {
+        if (! $enrollment->isPending()) {
             throw new RuntimeException('Enrollment is not in pending status');
         }
 
@@ -30,6 +29,7 @@ final readonly class ValidateEnrollmentAction
         // Activate if free or paid
         if ($isFreeTier || $isFreeFormation || $isPaid) {
             $enrollment->markAsActive();
+
             return $enrollment->fresh();
         }
 

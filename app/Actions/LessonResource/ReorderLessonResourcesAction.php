@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions\LessonResource;
 
-use App\Models\LessonResource;
 use App\Models\Lesson;
+use App\Models\LessonResource;
 
 final readonly class ReorderLessonResourcesAction
 {
     /**
-     * @param array<int, array{ id: string, order: int }> $orders
+     * @param  array<int, array{ id: string, order: int }>  $orders
      */
     public function __invoke(Lesson $lesson, array $orders): bool
     {

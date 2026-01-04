@@ -9,7 +9,6 @@ use App\Models\Formation;
 use App\Models\Module;
 use App\Support\Mdx\MdxSyncService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -17,7 +16,7 @@ final class MdxSyncServiceTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const TEST_MDX_DIR = __DIR__ . '/../../../storage/test_mdx';
+    private const TEST_MDX_DIR = __DIR__.'/../../../storage/test_mdx';
 
     private string $testMdxPath;
 
@@ -26,19 +25,19 @@ final class MdxSyncServiceTest extends TestCase
         parent::setUp();
 
         // Créer le dossier de test
-        if (!is_dir(self::TEST_MDX_DIR)) {
+        if (! is_dir(self::TEST_MDX_DIR)) {
             mkdir(self::TEST_MDX_DIR, recursive: true);
         }
 
         // Définir le chemin MDX pour les tests
-        $this->testMdxPath = self::TEST_MDX_DIR . '/%s.mdx';
+        $this->testMdxPath = self::TEST_MDX_DIR.'/%s.mdx';
     }
 
     protected function tearDown(): void
     {
         // Nettoyer les fichiers de test
         if (is_dir(self::TEST_MDX_DIR)) {
-            $files = glob(self::TEST_MDX_DIR . '/*.mdx');
+            $files = glob(self::TEST_MDX_DIR.'/*.mdx');
             foreach ($files as $file) {
                 if (is_file($file)) {
                     unlink($file);
@@ -123,8 +122,8 @@ final class MdxSyncServiceTest extends TestCase
             'slug' => 'test-formation',
         ]);
 
-        $nonExistentDir = self::TEST_MDX_DIR . '/nested/dir';
-        $customPath = $nonExistentDir . '/%s.mdx';
+        $nonExistentDir = self::TEST_MDX_DIR.'/nested/dir';
+        $customPath = $nonExistentDir.'/%s.mdx';
         $service = new MdxSyncService($customPath);
 
         $path = $service->exportFormation($formation);
@@ -134,7 +133,7 @@ final class MdxSyncServiceTest extends TestCase
         $this->assertFileExists($path);
 
         // Nettoyer
-        $files = glob($nonExistentDir . '/*.mdx');
+        $files = glob($nonExistentDir.'/*.mdx');
         foreach ($files as $file) {
             if (is_file($file)) {
                 unlink($file);
@@ -178,7 +177,7 @@ final class MdxSyncServiceTest extends TestCase
         $mdxContent .= "---\n\n";
         $mdxContent .= "This is the course description.\n";
 
-        $testFile = self::TEST_MDX_DIR . '/laravel-advanced.mdx';
+        $testFile = self::TEST_MDX_DIR.'/laravel-advanced.mdx';
         file_put_contents($testFile, $mdxContent);
 
         $service = $this->createTestService();

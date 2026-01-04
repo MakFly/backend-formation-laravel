@@ -12,7 +12,7 @@ final class CertificateFactory extends Factory
 {
     public function definition(): array
     {
-        $certificateNumber = 'CERT-' . strtoupper(Str::random(12));
+        $certificateNumber = 'CERT-'.strtoupper(Str::random(12));
         $verificationCode = strtoupper(Str::random(8));
 
         return [

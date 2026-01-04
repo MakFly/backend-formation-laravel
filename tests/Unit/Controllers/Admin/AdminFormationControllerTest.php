@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers\Admin;
 
-use App\Http\Controllers\Api\Admin\AdminFormationController;
-use App\Models\Formation;
-use App\Models\Customer;
-use App\Models\Enrollment;
-use App\Models\Payment;
 use App\Enums\EnrollmentStatus;
 use App\Enums\PaymentStatus;
+use App\Http\Controllers\Api\Admin\AdminFormationController;
+use App\Models\Customer;
+use App\Models\Enrollment;
+use App\Models\Formation;
+use App\Models\Payment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,7 +23,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_lists_formations_with_pagination(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         Formation::factory()->count(15)->create(['is_published' => true]);
         Formation::factory()->count(5)->create(['is_published' => false]);
@@ -43,7 +43,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_filters_formations_by_published_status(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         Formation::factory()->count(10)->create(['is_published' => true]);
         Formation::factory()->count(5)->create(['is_published' => false]);
@@ -60,7 +60,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_filters_formations_by_search(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         Formation::factory()->create([
             'title' => 'Laravel for Beginners',
@@ -85,7 +85,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_includes_formation_stats_when_requested(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         $formation = Formation::factory()->create(['is_published' => true]);
         $customer = Customer::factory()->create();
@@ -119,7 +119,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_shows_formation_details(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         $formation = Formation::factory()->create(['is_published' => true]);
 
@@ -138,7 +138,7 @@ final class AdminFormationControllerTest extends TestCase
     #[Test]
     public function it_returns_formation_statistics(): void
     {
-        $controller = new AdminFormationController();
+        $controller = new AdminFormationController;
 
         $formation = Formation::factory()->create(['is_published' => true]);
         $customer = Customer::factory()->create();

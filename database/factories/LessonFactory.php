@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Lesson;
 use App\Models\Formation;
+use App\Models\Lesson;
 use App\Models\Module;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

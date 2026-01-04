@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Support\Mdx;
 
 use App\Models\Formation;
-use App\Models\Module;
 use App\Models\Lesson;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 final class MdxSyncService
 {
@@ -28,7 +25,7 @@ final class MdxSyncService
 
         // Créer le dossier si nécessaire
         $directory = dirname($path);
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             mkdir($directory, recursive: true);
         }
 
@@ -51,11 +48,12 @@ final class MdxSyncService
     {
         $path = sprintf($this->mdxPath, $slug);
 
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             return null;
         }
 
         $content = file_get_contents($path);
+
         return $this->parseMdxFrontmatter($content);
     }
 
@@ -95,7 +93,7 @@ final class MdxSyncService
         $modules = $formation->modules()->with('lessons')->get();
 
         $content = "---\n";
-        $content .= trim($frontmatter->toYaml()) . "\n";
+        $content .= trim($frontmatter->toYaml())."\n";
         $content .= "---\n\n";
         $content .= $formation->description ?? '';
 
@@ -126,7 +124,7 @@ final class MdxSyncService
         ];
 
         $content = "---\n";
-        $content .= trim($this->arrayToYaml($frontmatter)) . "\n";
+        $content .= trim($this->arrayToYaml($frontmatter))."\n";
         $content .= "---\n\n";
         $content .= $lesson->content ?? '';
 
@@ -135,31 +133,8 @@ final class MdxSyncService
 
     private function generateFormationFrontmatter(Formation $formation): object
     {
-        return new class(
-            $formation->title,
-            $formation->slug,
-            $formation->summary,
-            $formation->pricing_tier->value,
-            (float) $formation->price,
-            $formation->mode,
-            $formation->thumbnail,
-            $formation->video_trailer,
-            $formation->tags ?? [],
-            $formation->objectives ?? [],
-            $formation->requirements ?? [],
-            $formation->target_audience ?? [],
-            $formation->language,
-            $formation->subtitles ?? [],
-            $formation->difficulty_level,
-            $formation->duration_hours,
-            $formation->duration_minutes,
-            $formation->instructor_name,
-            $formation->instructor_title,
-            $formation->instructor_avatar,
-            $formation->instructor_bio,
-            $formation->is_published,
-            $formation->is_featured,
-        ) {
+        return new class($formation->title, $formation->slug, $formation->summary, $formation->pricing_tier->value, (float) $formation->price, $formation->mode, $formation->thumbnail, $formation->video_trailer, $formation->tags ?? [], $formation->objectives ?? [], $formation->requirements ?? [], $formation->target_audience ?? [], $formation->language, $formation->subtitles ?? [], $formation->difficulty_level, $formation->duration_hours, $formation->duration_minutes, $formation->instructor_name, $formation->instructor_title, $formation->instructor_avatar, $formation->instructor_bio, $formation->is_published, $formation->is_featured)
+        {
             public function __construct(
                 public readonly string $title,
                 public readonly string $slug,
@@ -207,25 +182,25 @@ final class MdxSyncService
                     $yaml .= "video_trailer: {$this->video_trailer}\n";
                 }
 
-                if (!empty($this->tags)) {
-                    $yaml .= "tags: [" . implode(', ', array_map(fn ($t) => "\"{$t}\"", $this->tags)) . "]\n";
+                if (! empty($this->tags)) {
+                    $yaml .= 'tags: ['.implode(', ', array_map(fn ($t) => "\"{$t}\"", $this->tags))."]\n";
                 }
 
-                if (!empty($this->objectives)) {
+                if (! empty($this->objectives)) {
                     $yaml .= "objectives:\n";
                     foreach ($this->objectives as $obj) {
                         $yaml .= "  - {$obj}\n";
                     }
                 }
 
-                if (!empty($this->requirements)) {
+                if (! empty($this->requirements)) {
                     $yaml .= "requirements:\n";
                     foreach ($this->requirements as $req) {
                         $yaml .= "  - {$req}\n";
                     }
                 }
 
-                if (!empty($this->target_audience)) {
+                if (! empty($this->target_audience)) {
                     $yaml .= "target_audience:\n";
                     foreach ($this->target_audience as $aud) {
                         $yaml .= "  - {$aud}\n";
@@ -234,8 +209,8 @@ final class MdxSyncService
 
                 $yaml .= "language: {$this->language}\n";
 
-                if (!empty($this->subtitles)) {
-                    $yaml .= "subtitles: [" . implode(', ', $this->subtitles) . "]\n";
+                if (! empty($this->subtitles)) {
+                    $yaml .= 'subtitles: ['.implode(', ', $this->subtitles)."]\n";
                 }
 
                 $yaml .= "difficulty_level: {$this->difficulty_level}\n";
@@ -261,8 +236,8 @@ final class MdxSyncService
                     $yaml .= "instructor_bio: {$this->instructor_bio}\n";
                 }
 
-                $yaml .= "is_published: " . ($this->is_published ? 'true' : 'false') . "\n";
-                $yaml .= "is_featured: " . ($this->is_featured ? 'true' : 'false') . "\n";
+                $yaml .= 'is_published: '.($this->is_published ? 'true' : 'false')."\n";
+                $yaml .= 'is_featured: '.($this->is_featured ? 'true' : 'false')."\n";
 
                 return $yaml;
             }
@@ -305,11 +280,12 @@ final class MdxSyncService
                 if ($currentKey !== null) {
                     $listValues[] = trim(substr($trimmed, 2));
                 }
+
                 continue;
             }
 
             // If we were collecting list items, save them
-            if ($currentKey !== null && !empty($listValues)) {
+            if ($currentKey !== null && ! empty($listValues)) {
                 $result[$currentKey] = $listValues;
                 $listValues = [];
             }
@@ -339,8 +315,7 @@ final class MdxSyncService
                 elseif (is_numeric($value)) {
                     $result[$key] = strpos($value, '.') !== false ? (float) $value : (int) $value;
                     $currentKey = null;
-                }
-                else {
+                } else {
                     $result[$key] = $value;
                     $currentKey = null;
                 }
@@ -348,7 +323,7 @@ final class MdxSyncService
         }
 
         // Don't forget the last list
-        if ($currentKey !== null && !empty($listValues)) {
+        if ($currentKey !== null && ! empty($listValues)) {
             $result[$currentKey] = $listValues;
         }
 
@@ -360,15 +335,16 @@ final class MdxSyncService
         $yaml = '';
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                $yaml .= "{$key}: [" . implode(', ', array_map(fn ($v) => "\"{$v}\"", $value)) . "]\n";
+                $yaml .= "{$key}: [".implode(', ', array_map(fn ($v) => "\"{$v}\"", $value))."]\n";
             } elseif (is_bool($value)) {
-                $yaml .= "{$key}: " . ($value ? 'true' : 'false') . "\n";
+                $yaml .= "{$key}: ".($value ? 'true' : 'false')."\n";
             } elseif (is_numeric($value)) {
                 $yaml .= "{$key}: {$value}\n";
             } else {
                 $yaml .= "{$key}: {$value}\n";
             }
         }
+
         return $yaml;
     }
 

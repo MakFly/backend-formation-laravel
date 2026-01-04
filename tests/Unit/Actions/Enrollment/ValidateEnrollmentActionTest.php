@@ -9,7 +9,6 @@ use App\Actions\Enrollment\ValidateEnrollmentAction;
 use App\Enums\EnrollmentStatus;
 use App\Enums\PricingTier;
 use App\Models\Customer;
-use App\Models\Enrollment;
 use App\Models\Formation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -26,11 +25,11 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['pricing_tier' => PricingTier::STANDARD, 'price' => 99.99]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation, [
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation, [
             'amount_paid' => 99.99,
         ]);
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
         $validated = $action($enrollment);
 
         $this->assertEquals(EnrollmentStatus::ACTIVE, $validated->status);
@@ -43,9 +42,9 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['pricing_tier' => PricingTier::FREE, 'price' => 0]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
         $validated = $action($enrollment);
 
         $this->assertEquals(EnrollmentStatus::ACTIVE, $validated->status);
@@ -57,9 +56,9 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['pricing_tier' => PricingTier::FREE, 'price' => 0]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
         $validated = $action($enrollment);
 
         $this->assertEquals(EnrollmentStatus::ACTIVE, $validated->status);
@@ -71,11 +70,11 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['pricing_tier' => PricingTier::STANDARD, 'price' => 99.99]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation, [
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation, [
             'amount_paid' => 0,
         ]);
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('payment required');
@@ -89,10 +88,10 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create();
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
         $enrollment->markAsActive();
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('not in pending status');
@@ -106,11 +105,11 @@ final class ValidateEnrollmentActionTest extends TestCase
         $customer = Customer::factory()->create();
         $formation = Formation::factory()->create(['pricing_tier' => PricingTier::FREE, 'price' => 0]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
         $enrollment->started_at = now()->subDay();
         $enrollment->save();
 
-        $action = new ValidateEnrollmentAction();
+        $action = new ValidateEnrollmentAction;
         $validated = $action($enrollment);
 
         $this->assertEquals(EnrollmentStatus::ACTIVE, $validated->status);

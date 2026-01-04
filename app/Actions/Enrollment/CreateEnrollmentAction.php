@@ -16,7 +16,7 @@ final readonly class CreateEnrollmentAction
     /**
      * Create a new enrollment for a customer in a formation.
      *
-     * @param array{amount_paid?: float, payment_reference?: string|null, metadata?: array|null} $data
+     * @param  array{amount_paid?: float, payment_reference?: string|null, metadata?: array|null}  $data
      */
     public function __invoke(Customer $customer, Formation $formation, array $data = []): Enrollment
     {
@@ -31,7 +31,7 @@ final readonly class CreateEnrollmentAction
         }
 
         return DB::transaction(function () use ($customer, $formation, $data) {
-            $enrollment = new Enrollment();
+            $enrollment = new Enrollment;
             $enrollment->customer_id = $customer->id;
             $enrollment->formation_id = $formation->id;
             $enrollment->status = EnrollmentStatus::PENDING;

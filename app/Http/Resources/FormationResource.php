@@ -59,10 +59,10 @@ final class FormationResource extends JsonResource
             'lessons_count' => $resource->lessons_count ?? null,
             'modules_count' => $resource->modules_count ?? null,
             'relationships' => [
-                'category' => $this->when($this->relationLoaded('category'), fn() => CategoryResource::make($this->category)),
-                'modules' => $this->when($this->relationLoaded('modules'), fn() => ModuleResource::collection($this->modules)),
-                'enrollments' => $this->when($this->relationLoaded('enrollments'), fn() => EnrollmentResource::collection($this->enrollments)),
-                'payments' => $this->when($this->relationLoaded('payments'), fn() => PaymentResource::collection($this->payments)),
+                'category' => $this->when($this->relationLoaded('category'), fn () => CategoryResource::make($this->category)),
+                'modules' => $this->when($this->relationLoaded('modules'), fn () => ModuleResource::collection($this->modules)),
+                'enrollments' => $this->when($this->relationLoaded('enrollments'), fn () => EnrollmentResource::collection($this->enrollments)),
+                'payments' => $this->when($this->relationLoaded('payments'), fn () => PaymentResource::collection($this->payments)),
             ],
         ];
     }

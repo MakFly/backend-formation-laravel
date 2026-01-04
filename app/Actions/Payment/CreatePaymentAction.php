@@ -11,14 +11,12 @@ use App\Models\Enrollment;
 use App\Models\Formation;
 use App\Models\Payment;
 use App\Support\Stripe\StripePaymentService;
-use Illuminate\Support\Str;
 
 final readonly class CreatePaymentAction
 {
     public function __construct(
         private StripePaymentService $stripeService
-    ) {
-    }
+    ) {}
 
     /**
      * Create a payment for enrollment.

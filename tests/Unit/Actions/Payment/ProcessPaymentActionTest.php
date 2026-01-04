@@ -29,7 +29,7 @@ final class ProcessPaymentActionTest extends TestCase
         $formation = Formation::factory()->create(['price' => 199.99]);
         $customer = Customer::factory()->create();
 
-        $action = new ProcessPaymentAction();
+        $action = new ProcessPaymentAction;
 
         $payment = Payment::factory()->create([
             'customer_id' => $customer->id,
@@ -65,7 +65,7 @@ final class ProcessPaymentActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $action = new ProcessPaymentAction();
+        $action = new ProcessPaymentAction;
 
         $enrollment = Enrollment::factory()->create([
             'customer_id' => $customer->id,
@@ -98,7 +98,7 @@ final class ProcessPaymentActionTest extends TestCase
         $formation = Formation::factory()->create(['price' => 199.99]);
         $customer = Customer::factory()->create();
 
-        $action = new ProcessPaymentAction();
+        $action = new ProcessPaymentAction;
 
         $payment = Payment::factory()->create([
             'customer_id' => $customer->id,
@@ -120,7 +120,7 @@ final class ProcessPaymentActionTest extends TestCase
     #[Test]
     public function it_throws_exception_if_payment_not_found(): void
     {
-        $action = new ProcessPaymentAction();
+        $action = new ProcessPaymentAction;
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Payment not found');
@@ -134,7 +134,7 @@ final class ProcessPaymentActionTest extends TestCase
         $formation = Formation::factory()->create(['price' => 199.99]);
         $customer = Customer::factory()->create();
 
-        $action = new ProcessPaymentAction();
+        $action = new ProcessPaymentAction;
 
         $payment = Payment::factory()->create([
             'customer_id' => $customer->id,

@@ -11,7 +11,7 @@ final readonly class UpdateModuleAction
 {
     public function __invoke(Module $module, array $data): Module
     {
-        if (isset($data['title']) && !isset($data['slug'])) {
+        if (isset($data['title']) && ! isset($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
         }
 

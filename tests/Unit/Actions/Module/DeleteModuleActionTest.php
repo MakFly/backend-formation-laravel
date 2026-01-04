@@ -21,7 +21,7 @@ final class DeleteModuleActionTest extends TestCase
         $formation = Formation::factory()->create();
         $module = Module::factory()->make(['formation_id' => $formation->id]);
         $module->save();
-        $action = new DeleteModuleAction();
+        $action = new DeleteModuleAction;
 
         $result = $action($module);
 
@@ -36,7 +36,7 @@ final class DeleteModuleActionTest extends TestCase
         $formation = Formation::factory()->create();
         $module = Module::factory()->make(['formation_id' => $formation->id]);
         $module->save();
-        $action = new DeleteModuleAction();
+        $action = new DeleteModuleAction;
 
         $action($module);
 

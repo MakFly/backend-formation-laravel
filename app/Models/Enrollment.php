@@ -14,9 +14,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 final class Enrollment extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -156,7 +157,7 @@ final class Enrollment extends Model
     public function updateProgress(int $percentage): void
     {
         $this->progress_percentage = max(0, min(100, $percentage));
-        if ($this->progress_percentage >= 100 && !$this->isCompleted()) {
+        if ($this->progress_percentage >= 100 && ! $this->isCompleted()) {
             $this->markAsCompleted();
         } else {
             $this->save();
@@ -171,6 +172,7 @@ final class Enrollment extends Model
         }
 
         $completedLessons = $this->lessonProgress()->where('status', 'completed')->count();
+
         return (int) round(($completedLessons / $totalLessons) * 100);
     }
 

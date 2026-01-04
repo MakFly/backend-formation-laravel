@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Actions\Certificate;
 
 use App\Enums\CertificateStatus;
-use App\Enums\EnrollmentStatus;
 use App\Models\Certificate;
 use App\Models\Enrollment;
 use App\Support\Certificate\CertificatePdfService;
@@ -16,15 +15,14 @@ final readonly class GenerateCertificateAction
 {
     public function __construct(
         private CertificatePdfService $pdfService
-    ) {
-    }
+    ) {}
 
     /**
      * Generate a certificate for a completed enrollment.
      */
     public function __invoke(Enrollment $enrollment): Certificate
     {
-        if (!$enrollment->isCompleted()) {
+        if (! $enrollment->isCompleted()) {
             throw new RuntimeException('Cannot generate certificate: enrollment is not completed');
         }
 
@@ -51,7 +49,7 @@ final readonly class GenerateCertificateAction
             'issued_at' => now(),
             'expires_at' => null, // Certificates don't expire by default
             'verification_code' => $verificationCode,
-            'student_name' => trim($customer->first_name . ' ' . $customer->last_name),
+            'student_name' => trim($customer->first_name.' '.$customer->last_name),
             'formation_title' => $formation->title,
             'instructor_name' => $formation->instructor_name,
             'completion_date' => $enrollment->completed_at?->toDateString() ?? now()->toDateString(),
@@ -75,7 +73,7 @@ final readonly class GenerateCertificateAction
     private function generateCertificateNumber(): string
     {
         do {
-            $number = 'CERT-' . strtoupper(Str::random(12));
+            $number = 'CERT-'.strtoupper(Str::random(12));
         } while (Certificate::where('certificate_number', $number)->exists());
 
         return $number;

@@ -42,6 +42,7 @@ final class MdxSync extends Command
         }
 
         $this->error('Veuillez spécifier un slug ou utiliser l\'option --all');
+
         return self::FAILURE;
     }
 
@@ -53,8 +54,9 @@ final class MdxSync extends Command
     ): int {
         $formation = Formation::where('slug', $slug)->first();
 
-        if (!$formation) {
+        if (! $formation) {
             $this->error("Formation '{$slug}' non trouvée.");
+
             return self::FAILURE;
         }
 
@@ -74,9 +76,9 @@ final class MdxSync extends Command
             $this->info("✓ Exporté vers : {$results['exported']}");
 
             if ($results['imported'] ?? false) {
-                $this->info("✓ Importé depuis MDX (modifications appliquées)");
+                $this->info('✓ Importé depuis MDX (modifications appliquées)');
             } else {
-                $this->info("○ Aucune modification à importer");
+                $this->info('○ Aucune modification à importer');
             }
 
             return self::SUCCESS;
@@ -93,6 +95,7 @@ final class MdxSync extends Command
 
         if ($count === 0) {
             $this->warn('Aucune formation à synchroniser.');
+
             return self::SUCCESS;
         }
 
@@ -140,8 +143,9 @@ final class MdxSync extends Command
     {
         $data = $this->mdxSyncService->importFormation($formation->slug);
 
-        if (!$data) {
+        if (! $data) {
             $this->warn("○ Aucun fichier MDX trouvé pour '{$formation->slug}'");
+
             return self::SUCCESS;
         }
 
@@ -149,7 +153,7 @@ final class MdxSync extends Command
         $formation->content_mdx = $data;
         $formation->save();
 
-        $this->info("✓ Importé depuis MDX (modifications appliquées)");
+        $this->info('✓ Importé depuis MDX (modifications appliquées)');
 
         return self::SUCCESS;
     }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Controllers\Admin;
 
+use App\Enums\PaymentStatus;
+use App\Enums\PaymentType;
 use App\Http\Controllers\Api\Admin\AdminOrderController;
 use App\Models\Customer;
 use App\Models\Formation;
 use App\Models\Payment;
-use App\Enums\PaymentStatus;
-use App\Enums\PaymentType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;

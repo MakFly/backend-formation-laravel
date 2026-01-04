@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\LessonResource;
 use App\Models\Lesson;
+use App\Models\LessonResource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 final class LessonResourceFactory extends Factory
@@ -20,7 +20,7 @@ final class LessonResourceFactory extends Factory
             'type' => fake()->randomElement(['pdf', 'video', 'audio', 'image', 'document', 'archive', 'link', 'code', 'attachment']),
             'file_path' => fake()->optional()->filePath(),
             'file_url' => fake()->optional()->url(),
-            'file_name' => fake()->optional()->word() . '.' . fake()->fileExtension(),
+            'file_name' => fake()->optional()->word().'.'.fake()->fileExtension(),
             'mime_type' => fake()->optional()->mimeType(),
             'file_size' => fake()->optional()->numberBetween(1024, 10485760),
             'duration' => fake()->optional()->numberBetween(60, 3600),

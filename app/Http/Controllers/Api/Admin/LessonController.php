@@ -86,7 +86,7 @@ final class LessonController extends Controller
         $validated['is_published'] = $validated['is_published'] ?? false;
 
         // Auto-set order if not provided
-        if (!isset($validated['order'])) {
+        if (! isset($validated['order'])) {
             if (isset($validated['module_id'])) {
                 $maxOrder = Lesson::where('module_id', $validated['module_id'])->max('order') ?? 0;
             } else {
@@ -110,7 +110,7 @@ final class LessonController extends Controller
         $validated = $request->validate([
             'module_id' => ['nullable', 'uuid', 'exists:modules,id'],
             'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:lessons,slug,' . $id],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:lessons,slug,'.$id],
             'summary' => ['nullable', 'string', 'max:500'],
             'content' => ['nullable', 'string'],
             'video_url' => ['nullable', 'url'],
@@ -121,7 +121,7 @@ final class LessonController extends Controller
         ]);
 
         // Auto-generate slug if title changed and slug not provided
-        if (isset($validated['title']) && !isset($validated['slug'])) {
+        if (isset($validated['title']) && ! isset($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
         }
 
@@ -326,7 +326,7 @@ final class LessonController extends Controller
 
         $currentLesson = $currentLesson->first();
 
-        if (!$currentLesson) {
+        if (! $currentLesson) {
             return;
         }
 

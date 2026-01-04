@@ -27,7 +27,7 @@ final class CompleteLessonActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new CompleteLessonAction();
+        $action = new CompleteLessonAction;
 
         $progress = $action($enrollment, $lesson);
 
@@ -51,7 +51,7 @@ final class CompleteLessonActionTest extends TestCase
 
         $startedAt = $progress->started_at;
 
-        $action = new CompleteLessonAction();
+        $action = new CompleteLessonAction;
         $action($enrollment, $lesson);
 
         $completedAt = $progress->fresh()->completed_at;
@@ -64,7 +64,7 @@ final class CompleteLessonActionTest extends TestCase
     {
         $enrollment = $this->createEnrollmentWithLesson();
         $lesson = Lesson::first();
-        $action = new CompleteLessonAction();
+        $action = new CompleteLessonAction;
 
         // Complete once
         $progress1 = $action($enrollment, $lesson);
@@ -94,12 +94,12 @@ final class CompleteLessonActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         // Complete one lesson
         $lesson1 = $formation->lessons()->first();
-        $action = new CompleteLessonAction();
+        $action = new CompleteLessonAction;
         $action($enrollment, $lesson1);
 
         // Enrollment progress should be 50%
@@ -119,11 +119,11 @@ final class CompleteLessonActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         $lesson = $formation->lessons()->first();
-        $action = new CompleteLessonAction();
+        $action = new CompleteLessonAction;
         $action($enrollment, $lesson);
 
         // Enrollment should be 100% complete
@@ -142,8 +142,8 @@ final class CompleteLessonActionTest extends TestCase
             'formation_id' => $formation->id,
         ]);
 
-        $enrollment = (new CreateEnrollmentAction())($customer, $formation);
-        (new ValidateEnrollmentAction())($enrollment);
+        $enrollment = (new CreateEnrollmentAction)($customer, $formation);
+        (new ValidateEnrollmentAction)($enrollment);
 
         return $enrollment->fresh();
     }

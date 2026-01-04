@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions\Module;
 
-use App\Models\Module;
 use App\Models\Formation;
+use App\Models\Module;
 
 final readonly class ReorderModulesAction
 {
     /**
-     * @param array<int, array{ id: string, order: int }> $orders
+     * @param  array<int, array{ id: string, order: int }>  $orders
      */
     public function __invoke(Formation $formation, array $orders): bool
     {
