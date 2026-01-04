@@ -57,13 +57,13 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read string $total_duration
- * @property-read int|null $enrollments_count
- * @property-read int|null $active_enrollments_count
- * @property-read int|null $completed_enrollments_count
- * @property-read float|null $revenue
- * @property-read float|null $refunds
- * @property-read int|null $lessons_count
- * @property-read int|null $modules_count
+ * @property int|null $enrollments_count
+ * @property int|null $active_enrollments_count
+ * @property int|null $completed_enrollments_count
+ * @property float|null $revenue
+ * @property float|null $refunds
+ * @property int|null $lessons_count
+ * @property int|null $modules_count
  * @property-read Category|null $category
  * @property-read Collection<int, Module> $modules
  * @property-read Collection<int, Lesson> $lessons

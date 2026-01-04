@@ -1,0 +1,1537 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany\:\:ordered\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Actions/Enrollment/CheckLessonAccessAction.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: app/Actions/Payment/ProcessPaymentAction.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/Admin/AdminCustomerController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/Admin/AdminCustomerController.php
+
+		-
+			message: '#^Property App\\Models\\Customer\:\:\$last_payment \(App\\Models\\Payment\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Controllers/Api/Admin/AdminCustomerController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/Admin/AdminFormationController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$count\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/Admin/AdminOrderController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$revenue\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/AdminOrderController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$total\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/AdminOrderController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Payment\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 2
+			path: app/Http/Controllers/Api/Admin/AdminOrderController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Formation\:\:\$payments_sum_amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$month\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$revenue\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$year\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Payment\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Enums\\PricingTier\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Api/Admin/DashboardController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Http/Controllers/Api/Admin/LessonController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/Admin/ModuleController.php
+
+		-
+			message: '#^Property App\\Models\\Module\:\:\$lessons_count is not writable\.$#'
+			identifier: assign.propertyReadOnly
+			count: 1
+			path: app/Http/Controllers/Api/Admin/ModuleController.php
+
+		-
+			message: '#^Property App\\Models\\Module\:\:\$published_lessons_count is not writable\.$#'
+			identifier: assign.propertyReadOnly
+			count: 1
+			path: app/Http/Controllers/Api/Admin/ModuleController.php
+
+		-
+			message: '#^Property App\\Models\\Module\:\:\$total_duration is not writable\.$#'
+			identifier: assign.propertyReadOnly
+			count: 1
+			path: app/Http/Controllers/Api/Admin/ModuleController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Http\\JsonResponse\:\:withStatusCode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/Api/EnrollmentController.php
+
+		-
+			message: '#^Offset ''blocked_by'' on array\{accessible\: false, reason\?\: string\} on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: app/Http/Controllers/Api/EnrollmentController.php
+
+		-
+			message: '#^Parameter \#2 \$lesson of callable App\\Actions\\Enrollment\\CheckLessonAccessAction expects App\\Models\\Lesson, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/EnrollmentController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/EnrollmentController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$customer_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/PaymentController.php
+
+		-
+			message: '#^Parameter \#2 \$status of static method App\\Support\\Http\\ApiResponseBuilder\:\:error\(\) expects App\\Enums\\HttpStatus, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/Api/PaymentController.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$amount_refunded\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$charge\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$payment_intent\.$#'
+			identifier: property.notFound
+			count: 5
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>code" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>message" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: app/Http/Controllers/Api/WebhookController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$color\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$icon\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$is_active\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$parent_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CategoryResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CategoryResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateCustomerResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateCustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateCustomerResource\:\:\$first_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateCustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateCustomerResource\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateCustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateCustomerResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateCustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateCustomerResource\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateCustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateEnrollmentResource\:\:\$completed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateEnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateEnrollmentResource\:\:\$enrolled_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateEnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateEnrollmentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateEnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateEnrollmentResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateEnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateEnrollmentResource\:\:\$validated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateEnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$mode\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$pricing_tier\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$thumbnail\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateFormationResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateFormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$certificate_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$completion_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$customer_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$download_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$enrollment_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$expires_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$formation_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$formation_title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$instructor_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$issued_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$pdf_filename\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$pdf_path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$pdf_size_bytes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$revoked_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$revoked_reason\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$student_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CertificateResource\:\:\$verification_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CertificateResource\:\:generateVerificationUrl\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CertificateResource\:\:isExpired\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CertificateResource\:\:isRevoked\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CertificateResource\:\:isValid\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/CertificateResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$company_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$company_siret\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$company_tva_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$enrollments\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$first_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\CustomerResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\CustomerResource\:\:relationLoaded\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Resources/CustomerResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$access_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$amount_paid\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$cancelled_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$completed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$customer_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$enrolled_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$formation_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$last_accessed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$payment_reference\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$progress_percentage\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$started_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\EnrollmentResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/EnrollmentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$average_rating\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$category\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$category_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$difficulty_level\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$duration_hours\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$duration_minutes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$enrollment_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$enrollments\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$instructor_avatar\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$instructor_bio\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$instructor_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$instructor_title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$is_featured\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$language\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$meta_description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$meta_keywords\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$meta_title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$mode\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$modules\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$objectives\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$payments\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$pricing_tier\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$published_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$requirements\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$review_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$subtitles\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$summary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$tags\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$target_audience\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$thumbnail\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$total_duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\FormationResource\:\:\$video_trailer\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\FormationResource\:\:relationLoaded\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: app/Http/Resources/FormationResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$access_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$completed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$current_position\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$enrollment_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$is_favorite\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$last_accessed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$lesson_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$progress_percentage\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$started_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$time_spent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$time_spent_seconds\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonProgressResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonProgressResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$content\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$content_mdx\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$duration_human\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$duration_seconds\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$formation\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$formation_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$is_preview\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$module\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$module_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$resources\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$summary\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$thumbnail\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResource\:\:\$video_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\LessonResource\:\:relationLoaded\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/LessonResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$file_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$file_path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$file_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$file_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$human_readable_duration\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$human_readable_size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$is_downloadable\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$lesson_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$mime_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\LessonResourceResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/LessonResourceResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$formation\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$formation_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$is_free\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$is_published\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$lesson_count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$lessons\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$published_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$slug\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\ModuleResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\ModuleResource\:\:relationLoaded\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Resources/ModuleResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$amount_refunded\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$created_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$currency\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$customer\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$customer_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$enrollment\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$enrollment_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$failed_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$formation\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$formation_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$paid_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$payment_method_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$refunded_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$stripe_checkout_session_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$stripe_payment_intent_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\PaymentResource\:\:\$updated_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Call to an undefined method App\\Http\\Resources\\PaymentResource\:\:relationLoaded\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: app/Http/Resources/PaymentResource.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$lessons\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Support/Mdx/MdxSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Support/Mdx/MdxSyncService.php

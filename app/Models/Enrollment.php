@@ -55,6 +55,7 @@ use Illuminate\Support\Carbon;
  * @method static Enrollment firstOrCreate(array $attributes, array $values = [])
  * @method static Enrollment firstOrNew(array $attributes, array $values = [])
  * @method static int count()
+ * @method static Builder|Enrollment when($value, $callback, $default = null)
  */
 final class Enrollment extends Model
 {

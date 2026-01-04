@@ -35,7 +35,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read string|null $duration_human
- * @property-read int|null $resources_count
+ * @property int|null $resources_count
  * @property-read Module $module
  * @property-read Formation $formation
  * @property-read Collection<int, LessonResource> $resources

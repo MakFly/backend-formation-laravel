@@ -28,11 +28,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read string $full_name
- * @property-read int|null $enrollments_count
- * @property-read int|null $active_enrollments_count
- * @property-read int|null $completed_enrollments_count
- * @property-read float|null $total_spent
- * @property-read Payment|null $last_payment
+ * @property int|null $enrollments_count
+ * @property int|null $active_enrollments_count
+ * @property int|null $completed_enrollments_count
+ * @property float|null $total_spent
+ * @property Payment|null $last_payment
  * @property-read Collection<int, Enrollment> $enrollments
  * @property-read Collection<int, Payment> $payments
  *
