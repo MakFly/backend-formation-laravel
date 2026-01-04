@@ -490,7 +490,8 @@ app/
 
 routes/
 ├── api.php           # API versioning wrapper
-└── api_v1.php        # v1 endpoints
+└── api/
+    └── v1.php        # v1 endpoints
 
 tests/
 ├── Unit/

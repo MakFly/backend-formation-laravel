@@ -8,7 +8,7 @@ use App\Models\Certificate;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
-final class CertificatePdfService
+class CertificatePdfService
 {
     private const string DISK = 'public';
     private const string DIRECTORY = 'certificates';

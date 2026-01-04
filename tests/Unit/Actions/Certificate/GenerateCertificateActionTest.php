@@ -15,7 +15,9 @@ use App\Models\Enrollment;
 use App\Models\Formation;
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Support\Certificate\CertificatePdfService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
 use Tests\TestCase;
@@ -23,6 +25,25 @@ use Tests\TestCase;
 final class GenerateCertificateActionTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Create storage directory and fake PDF file
+        $storagePath = storage_path('app/public/certificates');
+        if (!is_dir($storagePath)) {
+            mkdir($storagePath, 0755, true);
+        }
+        file_put_contents($storagePath . '/test.pdf', 'fake pdf content');
+
+        // Mock the CertificatePdfService to avoid actual file operations
+        $this->partialMock(CertificatePdfService::class, function ($mock) use ($storagePath) {
+            $fakePath = $storagePath . '/test.pdf';
+            $mock->shouldReceive('generate')->andReturn($fakePath);
+            $mock->shouldReceive('regenerate')->andReturn($fakePath);
+        });
+    }
 
     #[Test]
     public function it_generates_certificate_for_completed_enrollment(): void

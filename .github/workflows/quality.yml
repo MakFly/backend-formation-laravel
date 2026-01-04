@@ -43,6 +43,7 @@ jobs:
           php artisan key:generate
           php -r "file_put_contents('database/database.sqlite', '');"
           php artisan migrate --force
+          php artisan storage:link
 
       - name: Run Laravel Pint (code formatting check)
         run: ./vendor/bin/pint --test
@@ -90,6 +91,7 @@ jobs:
           php artisan key:generate
           php -r "file_put_contents('database/database.sqlite', '');"
           php artisan migrate --force
+          php artisan storage:link
 
       - name: Run tests
         run: php artisan test --coverage

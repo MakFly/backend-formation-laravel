@@ -42,6 +42,7 @@ jobs:
           php artisan key:generate
           php -r "file_put_contents('database/database.sqlite', '');"
           php artisan migrate --force
+          php artisan storage:link
 
       - name: Clear and cache configurations
         run: |

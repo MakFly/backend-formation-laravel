@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 
 // API Versioning - Current version is v1
 Route::prefix('v1')->group(function () {
-    include base_path('routes/api_v1.php');
+    include base_path('routes/api/v1.php');
 });
 
 // API Version endpoint
