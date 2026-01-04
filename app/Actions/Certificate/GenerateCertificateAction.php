@@ -27,6 +27,7 @@ final readonly class GenerateCertificateAction
         }
 
         // Check if certificate already exists
+        /** @var Certificate|null $existing */
         $existing = Certificate::where('enrollment_id', $enrollment->id)->first();
         if ($existing && $existing->isValid()) {
             return $existing;

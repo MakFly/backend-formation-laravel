@@ -15,6 +15,7 @@ final readonly class VerifyCertificateAction
      */
     public function __invoke(string $verificationCode): array
     {
+        /** @var Certificate|null $certificate */
         $certificate = Certificate::byVerificationCode($verificationCode)->first();
 
         if (! $certificate) {
@@ -55,6 +56,7 @@ final readonly class VerifyCertificateAction
      */
     public function byNumber(string $certificateNumber): array
     {
+        /** @var Certificate|null $certificate */
         $certificate = Certificate::byCertificateNumber($certificateNumber)->first();
 
         if (! $certificate) {
